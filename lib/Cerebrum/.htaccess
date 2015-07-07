@@ -1,0 +1,5 @@
+############################################
+## By default allow all access
+
+    Order allow,deny
+    Allow from all
