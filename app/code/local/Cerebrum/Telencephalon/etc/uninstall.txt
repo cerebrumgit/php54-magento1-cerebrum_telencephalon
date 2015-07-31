@@ -1,0 +1,14 @@
+app/code/local/Cerebrum/Telencephalon
+app/etc/modules/Cerebrum_Telencephalon.xml
+app/locale/en_US/Cerebrum_Telencephalon.csv
+app/locale/pt_BR/Cerebrum_Telencephalon.csv
+app/design/adminhtml/default/default/layout/cerebrum_telencephalon.xml
+app/design/adminhtml/default/default/template/cerebrum_telencephalon
+skin/adminhtml/default/default/css/cerebrum_telencephalon
+skin/adminhtml/default/default/images/cerebrum_telencephalon
+skin/adminhtml/default/default/js/cerebrum_telencephalon
+app/design/frontend/base/default/layout/cerebrum_telencephalon.xml
+app/design/frontend/base/default/template/cerebrum_telencephalon
+skin/frontend/base/default/css/cerebrum_telencephalon
+skin/frontend/base/default/images/cerebrum_telencephalon
+skin/frontend/base/default/js/cerebrum_telencephalon
