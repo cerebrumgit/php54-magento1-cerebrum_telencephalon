@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<gridcontrol>
+	<grids>
+
+		<!-- grid id -->
+		<productGrid>
+			<!-- column name -->
+				<!-- action -->
+
+			<!--<entity_id>
+				<remove/>
+			</entity_id>-->
+
+			<_status>
+				<add>
+					<index>status</index>
+					<type>options</type>
+					<!-- get singleton of catalog/product_status and calls getOptionArray -->
+					<options>catalog/product_status::getOptionArray</options>
+				</add>
+			</_status>
+
+		</productGrid>
+
+		<!-- grid id -->
+		<sales_order_grid>
+			<!-- column name -->
+				<!-- action -->
+
+			<!-- FIX: SQLSTATE[23000]: Integrity constraint violation: 1052 Column '' in where clause is ambiguous -->
+
+			<!-- /app/code/core/Mage/Adminhtml/Block/Sales/Order/Grid.php -->
+			<real_order_id>
+				<remove/>
+			</real_order_id>
+			<store_id>
+				<remove/>
+			</store_id>
+			<created_at>
+				<remove/>
+			</created_at>
+			<base_grand_total>
+				<remove/>
+			</base_grand_total>
+			<grand_total>
+				<remove/>
+			</grand_total>
+			<status>
+				<remove/>
+			</status>
+			<!-- FIX: SQLSTATE[23000]: Integrity constraint violation: 1052 Column '' in where clause is ambiguous -->
+
+
+		</sales_order_grid>
+
+	</grids>
+</gridcontrol>
