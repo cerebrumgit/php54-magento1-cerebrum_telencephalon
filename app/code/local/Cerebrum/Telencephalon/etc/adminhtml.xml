@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cerebrum_Telencephalon extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the COMMERCIAL License
+ * that is bundled with this package in the file LICENSE_TELENCEPHALON.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.cerebrum.com.br/commercial-license
+ * 
+ * @category   	Cerebrum
+ * @package		Cerebrum_Telencephalon
+ * @copyright  	Copyright (c) 2013
+ * @license		http://www.cerebrum.com.br/commercial-license
+ */
+-->
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<telencephalon translate="title" module="telencephalon">
+										<title>Telencephalon</title>
+									</telencephalon>
+									<fraudcheck translate="title" module="telencephalon">
+										<title>Fraud-Check</title>
+									</fraudcheck>
+									<smsnotifier translate="title" module="telencephalon">
+										<title>Fraud-Check</title>
+									</smsnotifier>
+								</children>
+							</config>
+						</children>
+					</system>
+					<telencephalon translate="title" module="telencephalon">
+						<title>Telencephalon</title>
+						<children>
+							<general module="telencephalon">
+								<title>General</title>
+								<action>adminhtml/system_config/edit/section/telencephalon</action>
+								<sort_order>0</sort_order>
+							</general>
+							<customer module="telencephalon">
+								<title>Customers</title>
+								<action>adminhtml/system_config/edit/section/customer</action>
+								<sort_order>10</sort_order>
+							 	<children>
+									<attributes translate="title" module="telencephalon">
+										<title>Manage Customer Attributes</title>
+										<action>adminhtml/telencephalon2_attributes/index/type/customer/</action>
+										<sort_order>0</sort_order>
+									</attributes>
+								</children>
+							</customer>
+							<shipping module="telencephalon">
+								<title>Methods of Shipping</title>
+								<action>adminhtml/system_config/edit/section/carriers</action>
+								<sort_order>20</sort_order>
+							 	<children>
+									<jadlog translate="title" module="telencephalon">
+										<title>Jadlog</title>
+										<action>adminhtml/telencephalon_jadlog</action>
+										<sort_order>0</sort_order>
+									</jadlog>
+								</children>
+							</shipping>
+							<payment module="telencephalon">
+								<title>Methods of Payment</title>
+								<action>adminhtml/system_config/edit/section/payment</action>
+								<sort_order>30</sort_order>
+							 	<children>
+									<pagseguro translate="title" module="telencephalon">
+										<title>PagSeguro</title>
+										<action>adminhtml/telencephalon2_pagseguro/index/</action>
+										<sort_order>0</sort_order>
+									</pagseguro>
+								</children>
+							</payment>
+							<risk module="telencephalon">
+								<title>Methods of Anti-Fraud</title>
+								<action>adminhtml/system_config/edit/section/fraudcheck</action>
+								<sort_order>40</sort_order>
+							</risk>
+							<sitemaps translate="title" module="telencephalon">
+								<title>Sitemap(s)</title>
+								<action>adminhtml/telencephalon2_sitemap/index</action>
+								<sort_order>50</sort_order>
+							</sitemaps>
+							<tools translate="title" module="telencephalon">
+								<title>Tools</title>
+								<action>adminhtml/telencephalon2_general/tools</action>
+								<sort_order>60</sort_order>
+							</tools>
+							<log translate="title" module="telencephalon">
+								<title>Logs</title>
+								<!--<action>adminhtml/telencephalon_log</action>-->
+								<sort_order>70</sort_order>
+							 	<children>
+									<file translate="title" module="telencephalon">
+										<title>Magento</title>
+										<action>adminhtml/telencephalon2_log</action>
+										<sort_order>10</sort_order>
+									</file>
+									<database translate="title" module="telencephalon">
+										<title>Telencephalon</title>
+										<action>adminhtml/telencephalon_log</action>
+										<sort_order>20</sort_order>
+									</database>
+								</children>
+							</log>
+						</children>
+					</telencephalon>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<menu>
+		<telencephalon translate="title" module="telencephalon">
+			<title>∞ Telencephalon ∞</title>
+			<sort_order>100</sort_order>
+			<depends>
+				<module>Cerebrum_Telencephalon</module>
+		 	</depends>
+		 	<children>
+				<general module="telencephalon">
+					<title>General</title>
+					<action>adminhtml/system_config/edit/section/telencephalon</action>
+					<sort_order>0</sort_order>
+				</general>
+				<customer module="telencephalon">
+					<title>Customers</title>
+					<action>adminhtml/system_config/edit/section/customer</action>
+					<sort_order>10</sort_order>
+				 	<children>
+						<attributes translate="title" module="telencephalon">
+							<title>Manage Customer Attributes</title>
+							<action>adminhtml/telencephalon2_attributes/index/type/customer/</action>
+							<sort_order>0</sort_order>
+						</attributes>
+					</children>
+				</customer>
+				<shipping module="telencephalon">
+					<title>Methods of Shipping</title>
+					<action>adminhtml/system_config/edit/section/carriers</action>
+					<sort_order>20</sort_order>
+				 	<children>
+						<jadlog translate="title" module="telencephalon">
+							<title>Jadlog</title>
+							<action>adminhtml/telencephalon_jadlog</action>
+							<sort_order>0</sort_order>
+						</jadlog>
+					</children>
+				</shipping>
+				<payment module="telencephalon">
+					<title>Methods of Payment</title>
+					<action>adminhtml/system_config/edit/section/payment</action>
+					<sort_order>30</sort_order>
+				 	<children>
+						<pagseguro translate="title" module="telencephalon">
+							<title>PagSeguro</title>
+							<action>adminhtml/telencephalon2_pagseguro/index/</action>
+							<sort_order>0</sort_order>
+						</pagseguro>
+					</children>
+				</payment>
+				<risk module="telencephalon">
+					<title>Methods of Anti-Fraud</title>
+					<action>adminhtml/system_config/edit/section/fraudcheck</action>
+					<sort_order>40</sort_order>
+				</risk>
+				<sitemaps translate="title" module="telencephalon">
+					<title>Sitemap(s)</title>
+					<action>adminhtml/telencephalon2_sitemap/index</action>
+					<sort_order>50</sort_order>
+				</sitemaps>
+				<tools translate="title" module="telencephalon">
+					<title>Tools</title>
+					<action>adminhtml/telencephalon2_general/tools</action>
+					<sort_order>60</sort_order>
+				</tools>
+				<log translate="title" module="telencephalon">
+					<title>Logs</title>
+					<!--<action>adminhtml/telencephalon_log</action>-->
+					<sort_order>70</sort_order>
+				 	<children>
+						<file translate="title" module="telencephalon">
+							<title>Magento</title>
+							<action>adminhtml/telencephalon2_log</action>
+							<sort_order>10</sort_order>
+						</file>
+						<database translate="title" module="telencephalon">
+							<title>Telencephalon</title>
+							<action>adminhtml/telencephalon_log</action>
+							<sort_order>20</sort_order>
+						</database>
+					</children>
+				</log>
+				<ping translate="title" module="telencephalon">
+					<title>Pings</title>
+					<action>adminhtml/telencephalon_ping</action>
+					<sort_order>90</sort_order>
+				</ping>
+				<manual translate="title" module="telencephalon">
+					<title>Manual</title>
+					<action>adminhtml/telencephalon2_general/manual</action>
+					<sort_order>100</sort_order>
+				</manual>
+				<!--<smsnotifier translate="title" module="telencephalon">
+					<title>SMS Notifier for Magento</title>
+					<sort_order>110</sort_order>
+					<children>
+						<send>
+							<title>Send SMS</title>
+							<action>smsnotify/adminhtml</action>
+							<sort_order>10</sort_order>
+						</send>
+						<config>
+							<title>Configuration</title>
+							<action>adminhtml/system_config/edit/section/smsnotifier</action>
+							<sort_order>20</sort_order>
+						</config>
+					</children>
+				</smsnotifier>
+				<note translate="title" module="telencephalon">
+					<title>Notes</title>
+					<action>adminhtml/telencephalon_note</action>
+					<sort_order>100</sort_order>
+				</note>-->
+			</children>
+		</telencephalon>
+	</menu>
+</config>

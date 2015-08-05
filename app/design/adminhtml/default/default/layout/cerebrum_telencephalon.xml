@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cerebrum_Telencephalon extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the COMMERCIAL License
+ * that is bundled with this package in the file LICENSE_TELENCEPHALON.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.cerebrum.com.br/commercial-license
+ * 
+ * @category   	Cerebrum
+ * @package		Cerebrum_Telencephalon
+ * @copyright  	Copyright (c) 2013
+ * @license		http://www.cerebrum.com.br/commercial-license
+ */
+--> 
+<layout>
+
+	<default>
+		<reference name="head">
+		   <!-- Default -->
+		   <action method="addItem">
+			  <type>js_css</type>
+			  <name>prototype/windows/themes/default.css</name>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addCss">
+			  <css>lib/prototype/windows/themes/magento.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://www.minimamente.com/magic-css3-animations/ -->
+		   <action method="addCss" ifconfig="telencephalon/telencephalon_libraries/active_magic_css">
+			  <css>lib/minimac_magic/magic.min.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://jquery.com/ -->
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_jquery">
+			  <type>skin_js</type>
+			  <js>lib/jquery/jquery-1.11.1.min.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_jquery">
+			  <type>skin_js</type>
+			  <js>js/cerebrum_telencephalon/jquery-no-conflict.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://semantic-ui.com/ -->
+		   <action method="addCss" ifconfig="telencephalon/telencephalon_libraries/active_css_semanticui">
+			  <css>lib/jlukic_semanticui/dist/semantic.min.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_js_semanticui">
+			  <type>skin_js</type>
+			  <js>lib/jlukic_semanticui/dist/semantic.min.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://lab.ejci.net/favico.js/ -->
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_favicojs">
+			  <type>skin_js</type>
+			  <js>lib/miroslavmagda_favicojs/favico.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://ricostacruz.com/nprogress/ -->
+		   <action method="addCss" ifconfig="telencephalon/telencephalon_libraries/active_nprogress">
+			  <css>lib/rstacruz_nprogress/nprogress.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_nprogress">
+			  <type>skin_js</type>
+			  <js>lib/rstacruz_nprogress/nprogress.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- Cerebrum_Telencephalon -->
+		   <action method="addCss">
+			  <css>css/cerebrum_telencephalon/general.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem">
+			  <type>skin_js</type>
+			  <js>js/cerebrum_telencephalon/general.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		</reference>
+	</default>
+
+	<!-- Logs grid action -->
+	<adminhtml_telencephalon_log_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>telencephalon/log</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/adminhtml_log" name="log" />
+		</reference>
+	</adminhtml_telencephalon_log_index>
+	<adminhtml_telencephalon_log_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="telencephalon/adminhtml_log_grid" name="log_grid"/>
+		</block>
+	</adminhtml_telencephalon_log_grid>
+
+	<!-- Log add/edit action -->
+	<adminhtml_telencephalon_log_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>telencephalon/log</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/adminhtml_log_edit" name="log_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="telencephalon/adminhtml_log_edit_tabs" name="log_tabs"></block>
+		</reference> 
+	</adminhtml_telencephalon_log_edit>
+
+	<!-- Pings grid action -->
+	<adminhtml_telencephalon_ping_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>telencephalon/ping</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/adminhtml_ping" name="ping" />
+		</reference>
+	</adminhtml_telencephalon_ping_index>
+	<adminhtml_telencephalon_ping_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="telencephalon/adminhtml_ping_grid" name="ping_grid"/>
+		</block>
+	</adminhtml_telencephalon_ping_grid>
+
+	<!-- Ping add/edit action -->
+	<adminhtml_telencephalon_ping_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>telencephalon/ping</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/adminhtml_ping_edit" name="ping_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="telencephalon/adminhtml_ping_edit_tabs" name="ping_tabs"></block>
+		</reference> 
+	</adminhtml_telencephalon_ping_edit>
+
+	<!-- Jadlogs grid action -->
+	<adminhtml_telencephalon_jadlog_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>telencephalon/jadlog</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/adminhtml_jadlog" name="jadlog" />
+		</reference>
+	</adminhtml_telencephalon_jadlog_index>
+	<adminhtml_telencephalon_jadlog_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="telencephalon/adminhtml_jadlog_grid" name="jadlog_grid"/>
+		</block>
+	</adminhtml_telencephalon_jadlog_grid>
+
+	<!-- Jadlog add/edit action -->
+	<adminhtml_telencephalon_jadlog_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>telencephalon/jadlog</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/adminhtml_jadlog_edit" name="jadlog_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="telencephalon/adminhtml_jadlog_edit_tabs" name="jadlog_tabs"></block>
+		</reference> 
+	</adminhtml_telencephalon_jadlog_edit>
+	<adminhtml_telencephalon_note_edit>
+		<update handle="editor"/>
+		<reference name="left">
+			<block name="note.tree" type="telencephalon/adminhtml_note_tree" />
+		</reference>
+		<reference name="content">
+			<block name="note.edit" type="telencephalon/adminhtml_note_edit" template="cerebrum_telencephalon/note/edit.phtml" />
+		</reference>
+		<reference name="js">
+			<block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
+		</reference>
+	</adminhtml_telencephalon_note_edit>
+	<adminhtml_telencephalon_note_catalog_product_notes>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="telencephalon/adminhtml_catalog_product_edit_tab_note" name="catalog.product.edit.tab.notes"/>
+		</block>
+	</adminhtml_telencephalon_note_catalog_product_notes>
+
+	<!-- orderView addTab -->
+	<adminhtml_sales_order_view>
+		<reference name="sales_order_tabs">
+			<action method="addTab">
+				<name>Check-Fraud-Data</name>
+				<block>telencephalon/adminhtml_sales_order_view_tab_checkfraud</block>
+			</action>
+		</reference>
+	</adminhtml_sales_order_view>
+
+	<!-- attributes grid action -->
+	<adminhtml_telencephalon2_attributes_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>telencephalon/customer/attributes</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/adminhtml_attributes" name="customerattributes" />
+		</reference>
+	</adminhtml_telencephalon2_attributes_index>
+
+	<!-- sitemap grid action -->
+	<!--<adminhtml_telencephalon2_sitemap_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>telencephalon/sitemap</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/adminhtml_sitemap" name="telencephalon_sitemap" />
+		</reference>
+	</adminhtml_telencephalon2_sitemap_index>-->
+
+	<!-- cerebrum->interest -->
+    <adminhtml_sales_order_view>
+        <reference name="order_totals">
+            <block name="interest" type="telencephalon/sales_order_totals" before="tax"/>
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_totals">
+            <block name="interest" type="telencephalon/sales_invoice_totals" before="tax"/>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+
+    <adminhtml_sales_order_invoice_new>
+        <reference name="invoice_totals">
+            <block name="interest" type="telencephalon/sales_invoice_totals" before="tax"/>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+    
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="invoice_totals">
+            <block name="interest" type="telencephalon/sales_invoice_totals" before="tax"/>
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="sales.order.view.totals.main">
+            <block type="adminhtml/sales_order_totals_item" name="interest" template="sales/order/totals/item.phtml" before="tax">
+                <action method="setSourceField"><value>interest</value></action>
+                <action method="setLabel"><value>Interest</value></action>
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="sales.order.view.totals.main">
+            <block type="adminhtml/sales_order_totals_item" name="interest" template="sales/order/totals/item.phtml" before="tax">
+                <action method="setSourceField"><value>interest</value></action>
+                <action method="setLabel"><value>Interest</value></action>
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+
+	<!-- cerebrum->order_grid -->
+    <!--<sales_order_grid_update_handle>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter">
+                <columnId>updated_at</columnId>
+                <arguments>
+                    <header>Updated on</header>
+                    <index>updated_at</index>
+                    <filter_index>main_table.updated_at</filter_index>
+                    <type>datetime</type>
+                </arguments>
+                <after>created_at</after>
+            </action>
+            <action method="addColumnAfter">
+                <columnId>entity_id</columnId>
+                <arguments>
+                    <header>Order Id</header>
+                    <index>entity_id</index>
+                    <filter_index>main_table.entity_id</filter_index>
+                    <type>text</type>
+                </arguments>
+                <after>real_order_id</after>
+            </action>
+            <action method="addColumnAfter">
+                <columnId>additional_information</columnId>
+                <arguments>
+                    <header>Additional information</header>
+                    <index>index_additional_information</index>
+                    <filter_index>payment.additional_information</filter_index>
+                    <type>text</type>
+					<renderer>Cerebrum_Telencephalon_Block_Adminhtml_Sales_Order_Grid_Renderer_Additionalinformation</renderer>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+            <action method="addColumnAfter">
+                <columnId>product_name</columnId>
+                <arguments>
+                    <header>Name</header>
+                    <index>index_product_name</index>
+                    <filter_index>order_item.product_name</filter_index>
+                    <type>text</type>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+            <action method="addColumnAfter">
+                <columnId>sku</columnId>
+                <arguments>
+                    <header>SKU</header>
+                    <index>index_sku</index>
+                    <filter_index>order_item.sku</filter_index>
+                    <type>text</type>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+            <action method="addColumnAfter">
+                <columnId>shipping_description</columnId>
+                <arguments>
+                    <header>Shipping description</header>
+                    <index>index_shipping_description</index>
+                    <filter_index>sales_flat_order.shipping_description</filter_index>
+                    <type>text</type>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+            <action method="addColumnAfter">
+                <columnId>method</columnId>
+                <arguments>
+                    <header>Payment Method</header>
+                    <index>index_method</index>
+                    <filter_index>payment.method</filter_index>
+                    <type>text</type>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+            <action method="addColumnAfter">
+                <columnId>customer_email</columnId>
+                <arguments>
+                    <header>Customer email</header>
+                    <index>index_customer_email</index>
+                    <filter_index>sales_flat_order.customer_email</filter_index>
+                    <type>text</type>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+        </reference>
+    </sales_order_grid_update_handle>-->
+    <!-- apply layout handle defined above -->
+    <!--<adminhtml_sales_order_grid>
+        <update handle="sales_order_grid_update_handle" />
+    </adminhtml_sales_order_grid>-->
+    <!-- apply layout handle defined above -->
+    <!--<adminhtml_sales_order_index>
+        <update handle="sales_order_grid_update_handle" />
+    </adminhtml_sales_order_index>-->
+
+</layout>
