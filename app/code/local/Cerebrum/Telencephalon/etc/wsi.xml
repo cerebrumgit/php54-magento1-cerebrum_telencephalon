@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:typens="urn:{{var wsdl.name}}"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	 xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	 xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	 name="{{var wsdl.name}}"
+	 targetNamespace="urn:{{var wsdl.name}}">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:{{var wsdl.name}}">
+			<xsd:complexType name="telencephalonNoteListEntityArray">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" name="complexObjectArray" type="typens:telencephalonNoteListEntity" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="telencephalonNoteListEntity">
+				<xsd:sequence>
+					<xsd:element name="entity_id" type="xsd:string" />
+					<xsd:element name="title" type="xsd:string" />
+					<xsd:element name="content" type="xsd:string" />
+					<xsd:element name="eventdate" type="xsd:string" />
+					<xsd:element name="file" type="xsd:string" />
+					<xsd:element name="image" type="xsd:string" />
+					<xsd:element name="url_key" type="xsd:string" />
+					<xsd:element name="status" type="xsd:string" />
+					<xsd:element name="parent_id" type="xsd:string" />
+					<xsd:element name="in_rss" type="xsd:string" />
+					<xsd:element name="meta_title" type="xsd:string" />
+					<xsd:element name="meta_keywords" type="xsd:string" />
+					<xsd:element name="meta_description" type="xsd:string" />
+
+					<xsd:element name="created_at" type="xsd:string" />
+					<xsd:element name="updated_at" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="telencephalonNoteAddEntity">
+				<xsd:sequence>
+					<xsd:element name="title" type="xsd:string" />
+					<xsd:element name="content" type="xsd:string" />
+					<xsd:element name="eventdate" type="xsd:string" />
+					<xsd:element name="file" type="xsd:string" />
+					<xsd:element name="image" type="xsd:string" />
+					<xsd:element name="url_key" type="xsd:string" />
+					<xsd:element name="status" type="xsd:string" />
+					<xsd:element name="parent_id" type="xsd:string" />
+					<xsd:element name="in_rss" type="xsd:string" />
+					<xsd:element name="meta_title" type="xsd:string" />
+					<xsd:element name="meta_keywords" type="xsd:string" />
+					<xsd:element name="meta_description" type="xsd:string" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="telencephalonNoteUpdateEntity">
+				<xsd:sequence>
+					<xsd:element name="title" type="xsd:string" />
+					<xsd:element name="content" type="xsd:string" />
+					<xsd:element name="eventdate" type="xsd:string" />
+					<xsd:element name="file" type="xsd:string" />
+					<xsd:element name="image" type="xsd:string" />
+					<xsd:element name="url_key" type="xsd:string" />
+					<xsd:element name="status" type="xsd:string" />
+					<xsd:element name="parent_id" type="xsd:string" />
+					<xsd:element name="in_rss" type="xsd:string" />
+					<xsd:element name="meta_title" type="xsd:string" />
+					<xsd:element name="meta_keywords" type="xsd:string" />
+					<xsd:element name="meta_description" type="xsd:string" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="telencephalonNoteInfoEntity">
+				<xsd:sequence>
+					<xsd:element name="entity_id" type="xsd:string" />
+					<xsd:element name="title" type="xsd:string" />
+					<xsd:element name="content" type="xsd:string" />
+					<xsd:element name="eventdate" type="xsd:string" />
+					<xsd:element name="file" type="xsd:string" />
+					<xsd:element name="image" type="xsd:string" />
+					<xsd:element name="url_key" type="xsd:string" />
+					<xsd:element name="status" type="xsd:string" />
+					<xsd:element name="parent_id" type="xsd:string" />
+					<xsd:element name="in_rss" type="xsd:string" />
+					<xsd:element name="meta_title" type="xsd:string" />
+					<xsd:element name="meta_keywords" type="xsd:string" />
+					<xsd:element name="meta_description" type="xsd:string" />
+
+					<xsd:element name="created_at" type="xsd:string" />
+					<xsd:element name="updated_at" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="telencephalonNoteMoveEntity">
+				<xsd:sequence>
+				<xsd:element name="note_id" type="xsd:string" />
+				<xsd:element name="parent_id" type="xsd:string" />
+				<xsd:element name="after_id" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="telencephalonNoteAssignProductEntity">
+				<xsd:sequence>
+				<xsd:element name="note_id" type="xsd:string" />
+				<xsd:element name="product_id" type="xsd:string" />
+				<xsd:element name="position" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="telencephalonNoteUnassignProductEntity">
+				<xsd:sequence>
+				<xsd:element name="note_id" type="xsd:string" />
+				<xsd:element name="product_id" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:element name="telencephalonNoteListRequestParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+						<xsd:element minOccurs="0" maxOccurs="1" name="filters" type="typens:filters" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteListResponseParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:telencephalonNoteListEntityArray" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteInfoRequestParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="noteId" type="xsd:string" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteInfoResponseParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:telencephalonNoteInfoEntity" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteAddRequestParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:telencephalonNoteAddEntity" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteAddResponseParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:int" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteUpdateRequestParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="noteId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:telencephalonNoteUpdateEntity" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteUpdateResponseParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteRemoveRequestParam">
+				<xsd:complexType>
+					<xsd:sequence>
+					<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="noteId" type="xsd:string" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteRemoveResponseParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />
+					</xsd:sequence>
+ 				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteMoveRequestParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="noteId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="parent_d" type="xsd:string" />
+						<xsd:element minOccurs="0" maxOccurs="1" name="after_id" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteAssignProductResponseParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteAssignProductRequestParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="noteId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="productId" type="xsd:string" />
+						<xsd:element minOccurs="0" maxOccurs="1" name="position" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteAssignProductResponseParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteUnassignProductRequestParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="noteId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="productId" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="telencephalonNoteUnassignProductResponseParam">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:boolean" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+				</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="telencephalonNoteListRequest">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteListRequestParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteListResponse">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteListResponseParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteInfoRequest">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteInfoRequestParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteInfoResponse">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteInfoResponseParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteAddRequest">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteAddRequestParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteAddResponse">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteAddResponseParam"/>
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteUpdateRequest">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteUpdateRequestParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteUpdateResponse">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteUpdateResponseParam"/>
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteRemoveRequest">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteRemoveRequestParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteRemoveResponse">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteRemoveResponseParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteMoveRequest">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteMoveRequestParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteMoveResponse">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteMoveResponseParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteAssignProductRequest">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteAssignProductRequestParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteAssignProductResponse">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteAssignProductResponseParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteUnassignProductRequest">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteUnassignProductRequestParam" />
+	</wsdl:message>
+	<wsdl:message name="telencephalonNoteUnassignProductResponse">
+		<wsdl:part name="parameters" element="typens:telencephalonNoteUnassignProductResponseParam" />
+	</wsdl:message>
+	<wsdl:portType name="{{var wsdl.handler}}PortType">
+		<wsdl:operation name="telencephalonNoteList">
+			<wsdl:documentation>Retrieve list of notes</wsdl:documentation>
+			<wsdl:input message="typens:telencephalonNoteListRequest" />
+			<wsdl:output message="typens:telencephalonNoteListResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteInfo">
+			<wsdl:documentation>Retrieve note info</wsdl:documentation>
+			<wsdl:input message="typens:telencephalonNoteInfoRequest" />
+			<wsdl:output message="typens:telencephalonNoteInfoResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteAdd">
+			<wsdl:documentation>Add note</wsdl:documentation>
+			<wsdl:input message="typens:telencephalonNoteAddRequest" />
+			<wsdl:output message="typens:telencephalonNoteAddResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteUpdate">
+			<wsdl:documentation>Update note</wsdl:documentation>
+			<wsdl:input message="typens:telencephalonNoteUpdateRequest" />
+			<wsdl:output message="typens:telencephalonNoteUpdateResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteRemove">
+			<wsdl:documentation>Remove note</wsdl:documentation>
+			<wsdl:input message="typens:telencephalonNoteRemoveRequest" />
+			<wsdl:output message="typens:telencephalonNoteRemoveResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteMove">
+			<wsdl:documentation>Move note in tree</wsdl:documentation>
+			<wsdl:input message="typens:telencephalonNoteMoveRequest" />
+			<wsdl:output message="typens:telencephalonNoteMoveResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteAssignProduct">
+			<wsdl:documentation>Assign product to note</wsdl:documentation>
+			<wsdl:input message="typens:telencephalonNoteAssignProductRequest" />
+			<wsdl:output message="typens:telencephalonNoteAssignProductResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteUnassignProduct">
+			<wsdl:documentation>Remove product from note</wsdl:documentation>
+			<wsdl:input message="typens:telencephalonNoteUnassignProductRequest" />
+			<wsdl:output message="typens:telencephalonNoteUnassignProductResponse" />
+		</wsdl:operation>
+		</wsdl:portType>
+	<wsdl:binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="telencephalonNoteList">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteInfo">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteAdd">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteUpdate">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteRemove">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteMove">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteAssignProduct">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="telencephalonNoteUnassignProduct">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		</wsdl:binding>
+	<wsdl:service name="{{var wsdl.name}}Service">
+		<wsdl:port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+			<soap:address location="{{var wsdl.url}}" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
