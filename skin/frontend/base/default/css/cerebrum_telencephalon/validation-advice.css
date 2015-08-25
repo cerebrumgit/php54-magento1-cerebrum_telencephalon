@@ -1,0 +1,28 @@
+
+/**
+ * Base no seguinte exemplo
+ * http://comunidademagento.com.br/portal/mostrar-a-validacao-de-erro-de-formulario-do-magento-como-um-tooltip/
+ */
+/* Form Validation */
+
+.validation-advice {
+background:url(../../images/cerebrum_telencephalon/validation_advice_bg.gif) 4px 8px no-repeat #DB6D00 !important;
+bottom: -7px !important;
+color: #fff !important;
+font-size: 11px !important;
+font-weight: bold !important;
+line-height: 13px !important;
+min-height: 13px !important;
+padding: 10px 10px 10px 15px !important;
+position: relative !important;
+right: 0px !important;
+width: auto !important;
+border-radius: 5px;
+box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+z-index:99999 !important;
+clear:both;
+}
+
+/**
+ * ____
+ */
