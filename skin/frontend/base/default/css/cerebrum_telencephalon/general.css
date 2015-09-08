@@ -1,0 +1,110 @@
+/**
+ * Cerebrum_Telencephalon extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the COMMERCIAL License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.cerebrum.com.br/commercial-license
+ * 
+ * @category   	Cerebrum
+ * @package		Cerebrum_Telencephalon
+ * @copyright  	Copyright (c) 2013
+ * @license		http://www.cerebrum.com.br/commercial-license
+ */
+
+/**
+ * bloco do retorno do método de pagamento
+ */
+.box-payment-return .box-head h2 { background-image:url(../../images/cerebrum_telencephalon/fam_creditcards.gif) no-repeat; }
+
+/**
+ * checkout_onepage_index | e-mail -> info.phtml -> block style
+ */
+.payments-info { padding:10px;background-color:#fff;border:1px solid #ddd;margin-bottom:7px; }
+
+/**
+ * catalog_product_view
+ */
+.box-product-view-calculo-parcelas { display: none; }
+
+/**
+ * /form/cc.phtml
+ */
+.cerebrum-ul-cc-type { display: table; }
+.cerebrum-li-cc-type { padding:5px;float:left;display:inline; }
+.juros-estabelecimento { color:#F76541 !important; }
+.juros-emissor { color:#FF0000 !important; }
+
+/**
+ * openPopupsCerebrum
+ */
+
+.iframeBody { background-color: green; }
+
+/**
+ * Fix:
+ */
+.catalog-product-view .cart .shipping { margin: 0; }
+.catalog-product-view .arrow_box-left { margin: 0 0 18px; }
+
+/**
+ * http://sldn.softlayer.com/blog/cwolff/Pure-CSS-Modal-Overlays
+ */
+
+#overlay {
+    display: none; /* ensures it’s invisible until it’s called */
+    position: absolute; /* makes the div go into a position that’s absolute to the browser viewing area */
+    left: 25%; /* positions the div half way horizontally */
+    top: 25%; /* positions the div half way vertically */
+    padding: 25px; 
+    border: 2px solid black;
+    background-color: #ffffff;
+    width: 50%;
+    height: 50%;
+    z-index: 100; /* makes the div the top layer, so it’ll lay on top of the other content */
+}
+#overlay-fade {
+    display: none;  /* ensures it’s invisible until it’s called */
+    position: absolute;  /* makes the div go into a position that’s absolute to the browser viewing area */
+    left: 0%; /* makes the div span all the way across the viewing area */
+    top: 0%; /* makes the div span all the way across the viewing area */
+    background-color: black;
+    -moz-opacity: 0.7; /* makes the div transparent, so you have a cool overlay effect */
+    opacity: .70;
+    filter: alpha(opacity=70);
+    width: 100%;
+    height: 100%;
+    z-index: 90; /* makes the div the second most top layer, so it’ll lay on top of everything else EXCEPT for divs with a higher z-index (meaning the #overlay ruleset) */
+}
+
+/**
+ * Extend
+ * http://semantic-ui.com/
+ */
+
+.ui.header { background:none !important; text-align:left !important; }
+.ui.message .header { background:none !important; text-align:left !important; }
+.ui.header .sub.header { background:none !important; }
+.ui.popup .header { background:none !important; text-align:left !important; }
+.ui.form { display: block !important; }
+.ui.divider { overflow: visible !important; }
+.ui.table td { border: none; }
+
+.box.ui.segment:hover { box-shadow:0 0 10px #999999; }
+
+/**
+ * IWD_Opc
+ */
+
+.opc-wrapper-opc .opc-col-left .fields .field:first-child{ margin-right:19px !important; }
+
+.opc-wrapper-opc .form-list .customer-dob .dob-day { float:left; max-width:30px; }
+.opc-wrapper-opc .form-list .customer-dob .dob-month { float:left; margin-left:5px; max-width:30px; }
+.opc-wrapper-opc .form-list .customer-dob .dob-year { float:left; margin-left:5px; max-width:40px; }
+
+/**
+ * FIX: CEREBRUM
+ */
+
