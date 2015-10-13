@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cerebrum_Telencephalon extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the COMMERCIAL License
+ * that is bundled with this package in the file LICENSE_TELENCEPHALON.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.cerebrum.com.br/commercial-license
+ * 
+ * @category   	Cerebrum
+ * @package		Cerebrum_Telencephalon
+ * @copyright  	Copyright (c) 2013
+ * @license		http://www.cerebrum.com.br/commercial-license
+ */
+-->
+<layout>
+
+	<default>
+		<!-- cerebrum -->
+		<reference name="head">
+		   <!-- Default -->
+		   <action method="addJs">
+			  <script>prototype/window.js</script>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem">
+			  <type>js_css</type>
+			  <name>prototype/windows/themes/default.css</name>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addCss">
+			  <css>lib/prototype/windows/themes/magento.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://www.minimamente.com/magic-css3-animations/ -->
+		   <action method="addCss" ifconfig="telencephalon/telencephalon_libraries/active_magic_css">
+			  <css>lib/minimac_magic/magic.min.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://jquery.com/ -->
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_jquery">
+			  <type>skin_js</type>
+			  <js>lib/jquery/jquery-1.11.1.min.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_jquery">
+			  <type>skin_js</type>
+			  <js>js/cerebrum_telencephalon/jquery-no-conflict.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://semantic-ui.com/ -->
+		   <action method="addCss" ifconfig="telencephalon/telencephalon_libraries/active_css_semanticui">
+			  <css>lib/jlukic_semanticui/dist/semantic.min.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_js_semanticui">
+			  <type>skin_js</type>
+			  <js>lib/jlukic_semanticui/dist/semantic.min.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://lab.ejci.net/favico.js/ -->
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_favicojs">
+			  <type>skin_js</type>
+			  <js>lib/miroslavmagda_favicojs/favico.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- http://ricostacruz.com/nprogress/ -->
+		   <action method="addCss" ifconfig="telencephalon/telencephalon_libraries/active_nprogress">
+			  <css>lib/rstacruz_nprogress/nprogress.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem" ifconfig="telencephalon/telencephalon_libraries/active_nprogress">
+			  <type>skin_js</type>
+			  <js>lib/rstacruz_nprogress/nprogress.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- Cerebrum_Telencephalon -->
+		   <action method="addCss">
+			  <css>css/cerebrum_telencephalon/validation-advice.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addCss">
+			  <css>css/cerebrum_telencephalon/tree.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addCss">
+			  <css>css/cerebrum_telencephalon/general.css</css>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <action method="addItem">
+			  <type>skin_js</type>
+			  <js>js/cerebrum_telencephalon/general.js</js>
+			  <params><![CDATA[name=""]]></params>
+		   </action>
+		   <!-- HTML5 IE enabling script -->
+		  <block type="core/text" name="html5shiv.googlecode">
+			<action method="setText">
+			  <text><![CDATA[<!--[if lt IE 9]>
+<script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->]]></text>
+			</action>
+		  </block>
+
+		</reference>
+
+		<!--<reference name="footer_links">
+			<action method="addLink" translate="label title" module="telencephalon">
+				<label>Notes</label>
+				<url helper="telencephalon/getNotesUrl" />
+				<title>Notes</title>
+				<prepare />
+				<urlParams/>
+				<position>120</position>
+			</action>
+		</reference>-->
+	</default>
+
+	<opc_index_index translate="label">
+		<reference name="head">
+			<action method="removeItem">
+				<type>skin_js</type>
+				<name>lib/jlukic_semanticui/build/packaged/javascript/semantic.min.js</name>
+			</action>
+		</reference>
+	</opc_index_index>
+
+	<telencephalon_note_index translate="label" module="telencephalon">
+		<label>Notes list</label>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>		
+		<reference name="head">
+			<action method="addItem" ifconfig="telencephalon/note/tree"><type>skin_js</type><js>js/cerebrum_telencephalon/tree.js</js></action>
+			<action method="addCss" ifconfig="telencephalon/note/tree"><js>css/cerebrum_telencephalon/tree.css</js></action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/note_list" name="note_list" template="cerebrum_telencephalon/note/list.phtml" />
+		</reference>
+	</telencephalon_note_index>
+
+	<telencephalon_note_view translate="label" module="telencephalon">
+		<label>Note view page</label>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addItem" ifconfig="telencephalon/note/tree"><type>skin_js</type><js>js/cerebrum_telencephalon/tree.js</js></action>
+			<action method="addCss" ifconfig="telencephalon/note/tree"><js>css/cerebrum_telencephalon/tree.css</js></action>
+		</reference>
+		<reference name="content">
+			<block type="telencephalon/note_view" name="note_view" template="cerebrum_telencephalon/note/view.phtml" />
+			<block type="telencephalon/note_catalog_product_list" name="note.info.products" as="note_products" template="cerebrum_telencephalon/note/catalog/product/list.phtml" />
+			<block type="telencephalon/note_children" name="note_children" template="cerebrum_telencephalon/note/children.phtml" />
+		</reference>
+	</telencephalon_note_view>
+
+	<telencephalon_note_rss translate="label" module="telencephalon">
+		<label>Notes rss feed</label>
+		<block type="telencephalon/note_rss" output="toHtml" name="telencephalon.note.rss" />
+	</telencephalon_note_rss>
+
+	<rss_index_index>
+		<reference name="content">
+			<block type="telencephalon/rss" name="telencephalon.rss" template="cerebrum_telencephalon/rss.phtml">
+				<action method="addFeed" ifconfig="telencephalon/note/rss" translate="label" module="telencephalon">
+					<label>Notes</label>
+					<url helper="telencephalon/note/getRssUrl" />
+				</action>
+			</block>
+		</reference>
+	</rss_index_index>
+
+	<!--<catalog_product_view>
+		<reference name="product.info">
+			<block type="telencephalon/catalog_product_list_note" name="product.info.notes" as="product_notes" template="cerebrum_telencephalon/catalog/product/list/note.phtml">
+				<action method="addToParentGroup"><group>detailed_info</group></action>
+				<action method="setTitle" translate="value" module="telencephalon"><value>Notes</value></action>
+			</block>
+		</reference>
+	</catalog_product_view>-->
+
+	<!-- cerebrum_customer -->
+	<!-- http://www.pauldonnelly.net/magento-display-address-fields-in-create-an-account/ -->
+	<customer_account_create>
+		<reference name="customer_form_register">
+			<action method="setShowAddressFields" ifconfig="customer/cerebrum_general/active_address_fields_create_account"><value>true</value></action>
+		</reference>
+	</customer_account_create>
+
+	<!-- cerebrum->interest -->
+    <sales_order_print>
+        <reference name="order_totals">
+            <block name="interest" type="telencephalon/sales_order_totals" before="tax"/>
+        </reference>
+    </sales_order_print>
+
+    <sales_order_view>
+        <reference name="order_totals">
+            <block name="interest" type="telencephalon/sales_order_totals" before="tax"/>
+        </reference>
+    </sales_order_view>
+
+    <sales_email_order_items>
+        <reference name="order_totals">
+            <block name="interest" type="telencephalon/sales_order_totals" before="tax"/>
+        </reference>
+    </sales_email_order_items>
+
+    <sales_order_invoice>
+        <reference name="invoice_totals">
+            <block name="interest" type="telencephalon/sales_invoice_totals" before="tax"/>
+        </reference>
+    </sales_order_invoice>
+
+    <sales_order_printinvoice>
+        <reference name="invoice_totals">
+            <block name="interest" type="telencephalon/sales_invoice_totals" before="tax"/>
+        </reference>
+    </sales_order_printinvoice>
+
+    <sales_email_order_invoice_items>
+        <reference name="invoice_totals">
+            <block name="interest" type="telencephalon/sales_invoice_totals" before="tax"/>
+        </reference>
+    </sales_email_order_invoice_items>
+
+	<!-- cerebrum->interest -->
+	<PRODUCT_TYPE_grouped>
+		<reference name="product.info.grouped">
+			<action method="setTemplate" ifconfig="telencephalon/cerebrum_general/active_product_thumbnails_grouped_item">
+				<template>cerebrum_telencephalon/catalog/product/view/type/grouped.phtml</template>
+			</action>
+		</reference>
+	</PRODUCT_TYPE_grouped>
+
+	<!-- cerebrum->express_shortcut -->
+    <default>
+        <reference name="topCart.extra_actions">
+            <block type="telencephalon/payment_express_shortcut" name="telencephalon.partner.top_cart.shortcut" template="cerebrum_telencephalon/payment/express/shortcut.phtml"/>
+        </reference>
+        <reference name="cart_sidebar.extra_actions">
+            <block type="telencephalon/payment_express_shortcut" name="telencephalon.partner.cart_sidebar.shortcut" template="cerebrum_telencephalon/payment/express/shortcut.phtml"/>
+        </reference>
+    </default>
+
+    <checkout_cart_index>
+        <reference name="checkout.cart.top_methods">
+            <block type="telencephalon/payment_express_shortcut" name="checkout.cart.methods.telencephalon_express.top" before="-" template="cerebrum_telencephalon/payment/express/shortcut.phtml">
+                <action method="setIsQuoteAllowed"><value>1</value></action>
+            </block>
+        </reference>
+        <reference name="checkout.cart.methods">
+            <block type="telencephalon/payment_express_shortcut" name="checkout.cart.methods.telencephalon_express.bottom" before="-" template="cerebrum_telencephalon/payment/express/shortcut.phtml">
+                <action method="setIsQuoteAllowed"><value>1</value></action>
+            </block>
+        </reference>
+
+        <update handle="SHORTCUT_popup" />
+    </checkout_cart_index>
+
+    <catalog_product_view>
+        <reference name="product.info.addtocart">
+            <block type="page/html_wrapper" name="product.info.addtocart.telencephalon.wrapper" translate="label">
+                <label>telencephalon Express Checkout Shortcut Wrapper</label>
+                <block type="telencephalon/payment_express_shortcut" name="product.info.addtocart.telencephalon" before="-" template="cerebrum_telencephalon/payment/express/shortcut.phtml">
+                    <action method="setIsInCatalogProduct"><value>1</value></action>
+                </block>
+            </block>
+        </reference>
+        <update handle="SHORTCUT_popup" />
+        <reference name="right">
+            <block type="telencephalon/logo" name="telencephalon.partner.right.logo" template="cerebrum_telencephalon/payment/partner/logo.phtml">
+            </block>
+        </reference>
+    </catalog_product_view>
+
+    <catalog_category_default>
+        <update handle="SHORTCUT_popup" />
+        <reference name="right">
+            <block type="telencephalon/logo" name="telencephalon.partner.right.logo" template="cerebrum_telencephalon/payment/partner/logo.phtml"/>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_category_layered>
+        <update handle="SHORTCUT_popup" />
+        <reference name="right">
+            <block type="telencephalon/logo" name="telencephalon.partner.right.logo" template="cerebrum_telencephalon/payment/partner/logo.phtml"/>
+        </reference>
+    </catalog_category_layered>
+
+    <catalog_product_compare_index>
+        <update handle="SHORTCUT_popup" />
+    </catalog_product_compare_index>
+
+    <catalogsearch_result_index>
+        <update handle="SHORTCUT_popup" />
+    </catalogsearch_result_index>
+
+    <catalogsearch_advanced_result>
+        <update handle="SHORTCUT_popup" />
+    </catalogsearch_advanced_result>
+
+    <tag_product_list>
+        <update handle="SHORTCUT_popup" />
+    </tag_product_list>
+    <tag_customer_view>
+        <update handle="SHORTCUT_popup" />
+    </tag_customer_view>
+
+    <wishlist_index_index>
+        <update handle="SHORTCUT_popup" />
+    </wishlist_index_index>
+    <review_product_list>
+        <update handle="SHORTCUT_popup" />
+    </review_product_list>
+
+    <checkout_onepage_success>
+        <update handle="SHORTCUT_popup" />
+    </checkout_onepage_success>
+    <checkout_onepage_failure>
+        <update handle="SHORTCUT_popup" />
+    </checkout_onepage_failure>
+
+    <SHORTCUT_popup>
+        <reference name="product.tooltip">
+            <block type="page/html_wrapper" name="product.info.addtocart.telencephalon.wrapper" translate="label">
+                <block type="telencephalon/payment_express_shortcut" name="product.info.addtocart.telencephalon" template="cerebrum_telencephalon/payment/express/shortcut.phtml">
+                    <action method="setIsInCatalogProduct"><value>1</value></action>
+                    <action method="setShowOrPosition"><value>after</value></action>
+                </block>
+            </block>
+        </reference>
+    </SHORTCUT_popup>
+
+
+
+
+
+
+
+
+
+    <ecomdev_productpageshipping_skeleton>
+        <!--<reference name="head">
+            <action method="addCss"><file>css/ecomdev/productpageshipping.css</file></action>
+        </reference>-->
+        <block  name="shipping.estimate.form" type="telencephalon/estimate_form" template="cerebrum_telencephalon/estimate/form.phtml" />
+    </ecomdev_productpageshipping_skeleton>
+
+    <ecomdev_productpageshipping_additional>
+        <update handle="ecomdev_productpageshipping_skeleton" />
+        <reference name="product.info.additional">
+            <action method="insert"><block>shipping.estimate.form</block>
+
+			</action>
+        </reference>
+    </ecomdev_productpageshipping_additional>
+
+    <telencephalon_estimate_estimate>
+        <block type="telencephalon/estimate_result" name="shipping.estimate.result" template="cerebrum_telencephalon/estimate/result.phtml" output="toHtml" />
+    </telencephalon_estimate_estimate>
+
+
+
+
+
+
+
+
+
+
+
+</layout>

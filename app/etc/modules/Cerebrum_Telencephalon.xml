@@ -1,0 +1,11 @@
+<config>
+   <modules>
+      <Cerebrum_Telencephalon>
+         <active>true</active>
+         <codePool>local</codePool>
+         <depends>
+            <Mage_Core/>
+         </depends>
+      </Cerebrum_Telencephalon>
+   </modules>
+</config>

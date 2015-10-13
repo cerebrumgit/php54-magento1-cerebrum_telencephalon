@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+	name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+			<complexType name="telencephalonNoteListEntity">
+				<all>
+					<element name="entity_id" type="xsd:string" minOccurs="1" />
+					<element name="title" type="xsd:string" minOccurs="1" />
+					<element name="content" type="xsd:string" minOccurs="1" />
+					<element name="eventdate" type="xsd:string" minOccurs="1" />
+					<element name="file" type="xsd:string" minOccurs="0" />
+					<element name="image" type="xsd:string" minOccurs="0" />
+					<element name="url_key" type="xsd:string" minOccurs="0" />
+					<element name="status" type="xsd:string" minOccurs="0" />
+					<element name="parent_id" type="xsd:string" minOccurs="0" />
+					<element name="in_rss" type="xsd:string" minOccurs="0" />
+					<element name="meta_title" type="xsd:string" minOccurs="0" />
+					<element name="meta_keywords" type="xsd:string" minOccurs="0" />
+					<element name="meta_description" type="xsd:string" minOccurs="0" />
+
+					<element name="created_at" type="xsd:string" minOccurs="1" />
+					<element name="updated_at" type="xsd:string" minOccurs="1" />
+				</all>
+			</complexType>
+			<complexType name="telencephalonNoteListEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:telencephalonNoteListEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="telencephalonNoteAddEntity">
+				<all>
+					<element name="title" type="xsd:string" minOccurs="1" />
+					<element name="content" type="xsd:string" minOccurs="1" />
+					<element name="eventdate" type="xsd:string" minOccurs="1" />
+					<element name="file" type="xsd:string" minOccurs="0" />
+					<element name="image" type="xsd:string" minOccurs="0" />
+					<element name="url_key" type="xsd:string" minOccurs="0" />
+					<element name="status" type="xsd:string" minOccurs="0" />
+					<element name="parent_id" type="xsd:string" minOccurs="0" />
+					<element name="in_rss" type="xsd:string" minOccurs="0" />
+					<element name="meta_title" type="xsd:string" minOccurs="0" />
+					<element name="meta_keywords" type="xsd:string" minOccurs="0" />
+					<element name="meta_description" type="xsd:string" minOccurs="0" />
+
+				</all>
+			</complexType>
+			<complexType name="telencephalonNoteUpdateEntity">
+				<all>
+					<element name="title" type="xsd:string" minOccurs="1" />
+					<element name="content" type="xsd:string" minOccurs="1" />
+					<element name="eventdate" type="xsd:string" minOccurs="1" />
+					<element name="file" type="xsd:string" minOccurs="0" />
+					<element name="image" type="xsd:string" minOccurs="0" />
+					<element name="url_key" type="xsd:string" minOccurs="0" />
+					<element name="status" type="xsd:string" minOccurs="0" />
+					<element name="parent_id" type="xsd:string" minOccurs="0" />
+					<element name="in_rss" type="xsd:string" minOccurs="0" />
+					<element name="meta_title" type="xsd:string" minOccurs="0" />
+					<element name="meta_keywords" type="xsd:string" minOccurs="0" />
+					<element name="meta_description" type="xsd:string" minOccurs="0" />
+
+				</all>
+			</complexType>
+			<complexType name="telencephalonNoteInfoEntity">
+				<all>
+					<element name="entity_id" type="xsd:string" minOccurs="1" />
+					<element name="title" type="xsd:string" minOccurs="1" />
+					<element name="content" type="xsd:string" minOccurs="1" />
+					<element name="eventdate" type="xsd:string" minOccurs="1" />
+					<element name="file" type="xsd:string" minOccurs="0" />
+					<element name="image" type="xsd:string" minOccurs="0" />
+					<element name="url_key" type="xsd:string" minOccurs="0" />
+					<element name="status" type="xsd:string" minOccurs="0" />
+					<element name="parent_id" type="xsd:string" minOccurs="0" />
+					<element name="in_rss" type="xsd:string" minOccurs="0" />
+					<element name="meta_title" type="xsd:string" minOccurs="0" />
+					<element name="meta_keywords" type="xsd:string" minOccurs="0" />
+					<element name="meta_description" type="xsd:string" minOccurs="0" />
+
+					<element name="created_at" type="xsd:string" minOccurs="1" />
+					<element name="updated_at" type="xsd:string" minOccurs="1" />
+				</all>
+			</complexType>
+			<complexType name="telencephalonNoteMoveEntity">
+				<all>
+				<element name="note_id" type="xsd:string" minOccurs="1" />
+				<element name="parent_id" type="xsd:string" minOccurs="1" />
+				<element name="after_id" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="telencephalonNoteAssignProductEntity">
+				<all>
+				<element name="note_id" type="xsd:string" minOccurs="1" />
+				<element name="product_id" type="xsd:string" minOccurs="1" />
+				<element name="position" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+			<complexType name="telencephalonNoteUnassignProductEntity">
+				<all>
+				<element name="note_id" type="xsd:string" minOccurs="1" />
+				<element name="product_id" type="xsd:string" minOccurs="1" />
+				</all>
+			</complexType>
+				</schema>
+	</types>
+	<message name="telencephalonNoteListRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="filters" type="typens:filters"/>
+	</message>
+	<message name="telencephalonNoteListResponse">
+		<part name="result" type="typens:telencephalonNoteListEntityArray" />
+	</message>
+	<message name="telencephalonNoteInfoRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="noteId" type="xsd:string" />
+	</message>
+	<message name="telencephalonNoteInfoResponse">
+		<part name="result" type="typens:telencephalonNoteInfoEntity" />
+	</message>
+	<message name="telencephalonNoteAddRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="data" type="typens:telencephalonNoteAddEntity" />
+	</message>
+	<message name="telencephalonNoteAddResponse">
+		<part name="result" type="xsd:int"/>
+	</message>
+	<message name="telencephalonNoteUpdateRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="noteId" type="xsd:string" />
+		<part name="data" type="typens:telencephalonNoteUpdateEntity" />
+	</message>
+	<message name="telencephalonNoteUpdateResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+	<message name="telencephalonNoteRemoveRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="noteId" type="xsd:string" />
+	</message>
+	<message name="telencephalonNoteRemoveResponse">
+		<part name="result" type="xsd:boolean" />
+	</message>
+		<message name="telencephalonNoteMoveRequest">
+			<part name="sessionId" type="xsd:string" />
+			<part name="noteId" type="xsd:string" />
+			<part name="parentId" type="xsd:string" />
+			<part name="afterId" type="xsd:string" />
+		</message>
+		<message name="telencephalonNoteMoveResponse">
+			<part name="id" type="xsd:boolean"/>
+		</message>
+		<message name="telencephalonNoteAssignProductRequest">
+			<part name="sessionId" type="xsd:string" />
+			<part name="noteId" type="xsd:string" />
+			<part name="productId" type="xsd:string" />
+			<part name="position" type="xsd:string" />
+		</message>
+		<message name="telencephalonNoteAssignProductResponse">
+			<part name="result" type="xsd:boolean" />
+		</message>
+		<message name="telencephalonNoteUnassignProductRequest">
+			<part name="sessionId" type="xsd:string" />
+			<part name="noteId" type="xsd:string" />
+			<part name="productId" type="xsd:string" />
+		</message>
+		<message name="telencephalonNoteUnassignProductResponse">
+			<part name="result" type="xsd:boolean" />
+		</message>
+		<portType name="{{var wsdl.handler}}PortType">
+		<operation name="telencephalonNoteList">
+			<documentation>Retrieve list of note</documentation>
+			<input message="typens:telencephalonNoteListRequest" />
+			<output message="typens:telencephalonNoteListResponse" />
+		</operation>
+		<operation name="telencephalonNoteInfo">
+			<documentation>Retrieve note info</documentation>
+			<input message="typens:telencephalonNoteInfoRequest" />
+			<output message="typens:telencephalonNoteInfoResponse" />
+		</operation>
+		<operation name="telencephalonNoteAdd">
+			<documentation>Add note</documentation>
+			<input message="typens:telencephalonNoteAddRequest" />
+			<output message="typens:telencephalonNoteAddResponse" />
+		</operation>
+		<operation name="telencephalonNoteUpdate">
+			<documentation>Update note</documentation>
+			<input message="typens:telencephalonNoteUpdateRequest" />
+			<output message="typens:telencephalonNoteUpdateResponse" />
+		</operation>
+		<operation name="telencephalonNoteRemove">
+			<documentation>Remove note</documentation>
+			<input message="typens:telencephalonNoteRemoveRequest" />
+			<output message="typens:telencephalonNoteRemoveResponse" />
+		</operation>
+		<operation name="telencephalonNoteMove">
+			<documentation>Move note in tree</documentation>
+			<input message="typens:telencephalonNoteMoveRequest" />
+			<output message="typens:telencephalonNoteMoveResponse" />
+		</operation>
+		<operation name="telencephalonNoteAssignProduct">
+			<documentation>Assign product to note</documentation>
+			<input message="typens:telencephalonNoteAssignProductRequest" />
+			<output message="typens:telencephalonNoteAssignProductResponse" />
+		</operation>
+		<operation name="telencephalonNoteUnassignProduct">
+			<documentation>Remove product from note</documentation>
+			<input message="typens:telencephalonNoteUnassignProductRequest" />
+			<output message="typens:telencephalonNoteUnassignProductResponse" />
+		</operation>
+		</portType>
+	<binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="telencephalonNoteList">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="telencephalonNoteInfo">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="telencephalonNoteAdd">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="telencephalonNoteUpdate">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="telencephalonNoteRemove">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="telencephalonNoteMove">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="telencephalonNoteAssignProduct">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="telencephalonNoteUnassignProduct">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		</binding>
+	<service name="{{var wsdl.name}}Service">
+		<port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+			<soap:address location="{{var wsdl.url}}" />
+		</port>
+	</service>
+</definitions>
