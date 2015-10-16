@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cerebrum_Telencephalon extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the COMMERCIAL License
+ * that is bundled with this package in the file LICENSE_TELENCEPHALON.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.cerebrum.com.br/commercial-license
+ * 
+ * @category   	Cerebrum
+ * @package		Cerebrum_Telencephalon
+ * @copyright  	Copyright (c) 2013
+ * @license		http://www.cerebrum.com.br/commercial-license
+ */
+-->
+<widgets>
+	<telencephalon_note_view type="telencephalon/note_widget_view" translate="name description" module="telencephalon">
+		<name>Note view</name>
+		<description>Note view widget</description>
+		<is_email_compatible>0</is_email_compatible>
+		<parameters>
+			<note_id type="complex" translate="label">
+				<visible>1</visible>
+				<required>1</required>
+				<label>Note</label>
+				<type>label</type>
+				<helper_block>
+					<type>telencephalon/adminhtml_note_widget_chooser</type>
+					<data>
+						<button translate="open">
+							<open>Select Note</open>
+						</button>
+					</data>
+				</helper_block>
+				<sort_order>120</sort_order>
+			</note_id>
+		</parameters>
+	</telencephalon_note_view>
+	<telencephalon_note_link type="telencephalon/note_widget_link" translate="name description" module="telencephalon">
+		<name>Note link</name>
+		<description>Note link widget</description>
+		<is_email_compatible>0</is_email_compatible>
+		<parameters>
+			<note_id type="complex" translate="label">
+				<visible>1</visible>
+				<required>1</required>
+				<label>Note</label>
+				<type>label</type>
+				<helper_block>
+					<type>telencephalon/adminhtml_note_widget_chooser</type>
+					<data>
+						<button translate="open">
+							<open>Select Note</open>
+						</button>
+					</data>
+				</helper_block>
+				<sort_order>130</sort_order>
+			</note_id>
+		</parameters>
+	</telencephalon_note_link>
+	<telencephalon_note_subtree type="telencephalon/note_widget_subtree" translate="name description" module="telencephalon">
+		<name>Note subtree</name>
+		<description>Note subtree widget</description>
+		<is_email_compatible>0</is_email_compatible>
+		<parameters>
+			<note_id type="complex" translate="label">
+				<visible>1</visible>
+				<required>1</required>
+				<label>Note</label>
+				<type>label</type>
+				<helper_block>
+					<type>telencephalon/adminhtml_note_widget_chooser</type>
+					<data>
+						<button translate="open">
+							<open>Select Note</open>
+						</button>
+					</data>
+				</helper_block>
+				<sort_order>10</sort_order>
+			</note_id>
+			<recursion type="complex" translate="label">
+				<visible>1</visible>
+				<required>1</required>
+				<value>0</value>
+				<label>Levels to show (0 for all)</label>
+				<type>text</type>
+				<sort_order>20</sort_order>
+			</recursion>
+		</parameters>
+	</telencephalon_note_subtree>
+</widgets>
