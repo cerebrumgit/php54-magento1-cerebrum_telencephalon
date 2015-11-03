@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cerebrum_Telencephalon extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the COMMERCIAL License
+ * that is bundled with this package in the file LICENSE_TELENCEPHALON.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.cerebrum.com.br/commercial-license
+ * 
+ * @category   	Cerebrum
+ * @package		Cerebrum_Telencephalon
+ * @copyright  	Copyright (c) 2013
+ * @license		http://www.cerebrum.com.br/commercial-license
+ */
+-->
+<config>
+	<api>
+		<resources>
+			<telencephalon_note translate="title" module="telencephalon">
+				<title>Note API</title>
+				<model>telencephalon/note_api</model>
+				<acl>telencephalon/note</acl>
+				<methods>
+					<list translate="title" module="telencephalon">
+						<title>Retrieve list of notes</title>
+						<method>items</method>
+						<acl>telencephalon/note/list</acl>
+					</list>
+					<info translate="title" module="telencephalon">
+						<title>Retrieve note info</title>
+						<acl>telencephalon/note/info</acl>
+					</info>
+					<add translate="title" module="telencephalon">
+						<title>Add note</title>
+						<acl>telencephalon/note/add</acl>
+					</add>
+					<update translate="title" module="telencephalon">
+						<title>Update note</title>
+						<acl>telencephalon/note/update</acl>
+					</update>
+					<remove translate="title" module="telencephalon">
+						<title>Remove note</title>
+						<acl>telencephalon/note/remove</acl>
+					</remove>
+					<level translate="title" module="note">
+						<title>Retrieve one level of notes</title>
+						<acl>telencephalon/note/info</acl>
+					</level>
+					<move translate="title" module="catalog">
+						<title>Move note in tree</title>
+						<acl>telencephalon/note/move</acl>
+					</move>
+					<assignProduct translate="title" module="telencephalon">
+						<title>Assign product to Note</title>
+						<acl>telencephalon/note/update</acl>
+					</assignProduct>
+					<unassignProduct translate="title" module="telencephalon">
+						<title>Remove product from note}</title>
+						<acl>telencephalon/note/update</acl>
+					</unassignProduct>
+				</methods>
+				<faults module="telencephalon">
+					<note_not_exists>
+						<code>101</code>
+						<message>Requested note does not exist.</message>
+					</note_not_exists>
+					<invalid_data>
+						<code>102</code>
+						<message>Provided data is invalid.</message>
+					</invalid_data>
+					<save_error>
+						<code>103</code>
+						<message>Error while saving note. Details in error message.</message>
+					</save_error>
+					<remove_error>
+						<code>104</code>
+						<message>Error while removing note. Details in error message.</message>
+					</remove_error>
+					<not_moved>
+						<code>105</code>
+						<message>Note not moved. Details in error message.</message>
+					</not_moved>
+					<product_not_exists>
+						<code>106</code>
+						<message>Product does not exist.</message>
+					</product_not_exists>
+				</faults>
+			</telencephalon_note>
+		</resources>
+		<resources_alias>
+			<note>telencephalon_note</note>
+		</resources_alias>
+		<v2>
+			<resources_function_prefix>
+				<note>telencephalonNote</note>
+			</resources_function_prefix>
+		</v2>
+		<acl>
+			<resources>
+				<telencephalon translate="title" module="telencephalon">
+					<title>Telencephalon</title>
+					<note translate="title" module="telencephalon">
+						<title>Note</title>
+						<sort_order>140</sort_order>
+						<list translate="title" module="telencephalon">
+							<title>List</title>
+						</list>
+						<info translate="title" module="telencephalon">
+							<title>Info</title>
+						</info>
+						<add translate="title" module="telencephalon">
+							<title>Add</title>
+						</add>
+						<update translate="title" module="telencephalon">
+							<title>Update</title>
+						</update>
+						<remove translate="title" module="telencephalon">
+							<title>Remove</title>
+						</remove>
+						<move translate="title" module="telencephalon">
+							<title>Move</title>
+						</move>
+					</note>
+				</telencephalon>
+			</resources>
+		</acl>
+	</api>
+</config>

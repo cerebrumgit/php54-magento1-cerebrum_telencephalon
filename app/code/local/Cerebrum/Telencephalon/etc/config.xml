@@ -1,0 +1,1375 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cerebrum_Telencephalon extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the COMMERCIAL License
+ * that is bundled with this package in the file LICENSE_TELENCEPHALON.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.cerebrum.com.br/commercial-license
+ * 
+ * @category   	Cerebrum
+ * @package		Cerebrum_Telencephalon
+ * @copyright  	Copyright (c) 2013
+ * @license		http://www.cerebrum.com.br/commercial-license
+ */
+-->
+<config>
+	<modules>
+		<Cerebrum_Telencephalon>
+			<version>0.1.1</version>
+		</Cerebrum_Telencephalon>
+	</modules>
+	<global>
+		<resources>
+			<cerebrum_telencephalon_setup>
+				<setup>
+					<module>Cerebrum_Telencephalon</module>
+					<class>Cerebrum_Telencephalon_Model_Resource_Setup</class>
+				</setup>
+			</cerebrum_telencephalon_setup>
+		</resources>
+		<blocks>
+			<telencephalon>
+				<class>Cerebrum_Telencephalon_Block</class>
+			</telencephalon>
+		</blocks>
+		<helpers>
+			<telencephalon>
+				<class>Cerebrum_Telencephalon_Helper</class>
+			</telencephalon>
+		</helpers>
+		<models>
+			<telencephalon>
+				<class>Cerebrum_Telencephalon_Model</class>
+				<resourceModel>telencephalon_resource</resourceModel>
+			</telencephalon>
+			<telencephalon_resource>
+				<class>Cerebrum_Telencephalon_Model_Resource</class>
+				<entities>
+					<log>
+						<table>telencephalon_log</table>
+					</log>
+					<log_store>
+						<table>telencephalon_log_store</table>
+					</log_store>
+					<ping>
+						<table>telencephalon_ping</table>
+					</ping>
+					<ping_store>
+						<table>telencephalon_ping_store</table>
+					</ping_store>
+					<jadlog>
+						<table>telencephalon_jadlog</table>
+					</jadlog>
+					<jadlog_store>
+						<table>telencephalon_jadlog_store</table>
+					</jadlog_store>
+					<note>
+						<table>telencephalon_note</table>
+					</note>
+					<note_store>
+						<table>telencephalon_note_store</table>
+					</note_store>
+					<note_product>
+						<table>telencephalon_note_product</table>
+					</note_product>
+				</entities>
+			</telencephalon_resource>
+
+            <customer><!-- Fix: Magento 1.4.x, para ser exibido os novos atributos no admin -->
+                <rewrite>
+                    <customer>Cerebrum_Telencephalon_Model_Rewrite_Customer</customer>
+                </rewrite>
+            </customer><!-- Fix: Magento 1.4.x, para ser exibido os novos atributos no admin -->
+
+		</models>
+		<events>
+			<controller_front_init_routers>
+				<observers>
+					<cerebrum_telencephalon_observer_global_0>
+						<class>Cerebrum_Telencephalon_Controller_Router</class>
+						<method>initControllerRouters</method>
+					</cerebrum_telencephalon_observer_global_0>
+				</observers>
+			</controller_front_init_routers>
+		</events>
+
+		<!-- cerebrum->interest -->
+		<sales>
+			<quote>
+				<totals>
+					<interest>
+						<class>telencephalon/quote_address_interest</class><!-- frontend->checkout->OrderReview -->
+						<after>shipping</after>
+						<before>grand_total</before>
+					</interest>
+				</totals>
+			</quote>
+			<order_invoice>
+				<totals>
+					<your_total>
+					<class>telencephalon/order_invoice_interest</class>
+					<after>shipping</after>
+					<before>grand_total</before>
+					</your_total>
+				</totals>
+			</order_invoice>
+		</sales>
+		<fieldsets>
+			<sales_convert_quote_address>
+				<interest>
+					<to_order>*</to_order>
+				</interest>
+				<base_interest>
+					<to_order>*</to_order>
+				</base_interest>
+			</sales_convert_quote_address>
+			<sales_convert_order>
+				<interest>
+					<to_invoice>*</to_invoice>
+					<to_shipment>*</to_shipment>
+					<to_cm>*</to_cm>
+				</interest>
+				<base_interest>
+					<to_invoice>*</to_invoice>
+					<to_shipment>*</to_shipment>
+					<to_cm>*</to_cm>
+				</base_interest>
+			</sales_convert_order>
+		</fieldsets>
+		<!-- cerebrum->interest -->
+
+		<remote_addr_headers><!-- list headers that contain real client IP if webserver is behind a reverse proxy -->
+            <header1>HTTP_X_FORWARDED_FOR</header1>
+            <header2>HTTP_X_REAL_IP</header2>
+            <header3>REMOTE_ADDR</header3>
+		</remote_addr_headers>
+
+        <sales><!-- Adding custom product attribute to quote and order items in Magento -->
+            <quote>
+                <item>
+                    <product_attributes>
+                        <volume_comprimento/>
+                        <volume_largura/>
+                        <volume_altura/>
+                        <volume_diametro/>
+                    </product_attributes>
+                </item>
+            </quote>
+        </sales>
+
+		<events><!-- cerebrum->events -->
+			<checkout_controller_onepage_save_shipping_method>
+				<observers>
+					<cerebrum_telencephalon_observer_global_0>
+						<type>singleton</type>
+						<class>telencephalon/observer</class>
+						<method>checkoutControllerOnepageSaveShippingMethod</method>
+					</cerebrum_telencephalon_observer_global_0>
+				</observers>
+			</checkout_controller_onepage_save_shipping_method>
+			<sales_quote_save_before>
+                <observers>
+                    <cerebrum_telencephalon_observer_global_1>
+                        <type>singleton</type>
+						<class>telencephalon/observer</class>
+						<method>saveQuoteBefore</method>
+                    </cerebrum_telencephalon_observer_global_1>
+                </observers>
+			</sales_quote_save_before>
+            <checkout_type_onepage_save_order>
+              <observers>
+                    <cerebrum_telencephalon_observer_global_2>
+                        <type>singleton</type>
+						<class>telencephalon/observer</class>
+						<method>checkoutSaveOrder</method>
+                    </cerebrum_telencephalon_observer_global_2>
+                </observers>
+            </checkout_type_onepage_save_order>
+        </events><!-- cerebrum->events -->
+
+        <payment>
+            <groups>
+                <telencephalon>Telencephalon</telencephalon>
+            </groups>
+        </payment>
+
+		<uninstall><!-- https://github.com/magento-hackathon/MageTrashApp -->
+			<filename>uninstall.txt</filename>
+		</uninstall>
+
+		<!-- http://blog.belvg.com/using-default-magento-cache.html -->
+		<cache>
+		    <types>
+		        <cerebrum_telencephalon translate="label,description" module="cerebrum_telencephalon">
+		            <label>Cerebrum Cache Requests</label>
+		            <description>Cerebrum Cache Requests</description>
+		            <tags>CEREBRUMCACHE_CACHE</tags>
+		        </cerebrum_telencephalon>
+		    </types>
+		</cache>
+		<!-- http://blog.belvg.com/using-default-magento-cache.html -->
+
+	</global>
+	<adminhtml>
+		<layout>
+			<updates>
+				<cerebrum_telencephalon>
+					<file>cerebrum_telencephalon.xml</file>
+				</cerebrum_telencephalon>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<Cerebrum_Telencephalon>
+					<files>
+						<default>Cerebrum_Telencephalon.csv</default>
+					</files>
+				</Cerebrum_Telencephalon>
+			</modules>
+		</translate>
+		<events>
+			<core_block_abstract_prepare_layout_after>
+				<observers>
+					<note>
+						<type>singleton</type>
+						<class>telencephalon/adminhtml_observer</class>
+						<method>addNoteBlock</method>
+					</note>
+				</observers>
+			</core_block_abstract_prepare_layout_after>
+			<catalog_product_save_after>
+				<observers>
+					<note>
+						<type>singleton</type>
+						<class>telencephalon/adminhtml_observer</class>
+						<method>saveNoteData</method>
+					</note>
+				</observers>
+			</catalog_product_save_after>
+		</events>
+
+	    <events><!-- cerebrum->events -->
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_onlayoutgenerate>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>onLayoutGenerate</method>
+                    </cerebrum_telencephalon_observer_adminhtml_onlayoutgenerate>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+            <core_block_abstract_to_html_before>
+                <observers>
+		            <cerebrum_telencephalon_observer_adminhtml_onblocktohtml>
+						<type>singleton</type>
+		                <class>telencephalon/adminhtml_observer</class>
+		                <method>onBlockToHtml</method>
+		            </cerebrum_telencephalon_observer_adminhtml_onblocktohtml>
+                </observers>
+            </core_block_abstract_to_html_before>
+	        <core_block_abstract_to_html_before>
+	            <observers>
+	                <cerebrum_telencephalon_observer_adminhtml_onblocktohtmlbefore>
+						<type>singleton</type>
+						<class>telencephalon/adminhtml_observer</class>
+	                    <method>onBlockToHtmlBefore</method>
+	                </cerebrum_telencephalon_observer_adminhtml_onblocktohtmlbefore>
+	            </observers>
+	        </core_block_abstract_to_html_before>
+	        <core_block_abstract_to_html_after>
+	            <observers>
+	                <cerebrum_telencephalon_observer_adminhtml_onblocktohtmlafter>
+						<type>singleton</type>
+						<class>telencephalon/adminhtml_observer</class>
+	                    <method>onBlockToHtmlAfter</method>
+	                </cerebrum_telencephalon_observer_adminhtml_onblocktohtmlafter>
+	            </observers>
+	        </core_block_abstract_to_html_after>
+            <core_collection_abstract_load_before>
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_oncollectionload>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>onCollectionLoad</method>
+                    </cerebrum_telencephalon_observer_adminhtml_oncollectionload>
+                </observers>
+            </core_collection_abstract_load_before>
+            <core_collection_abstract_load_before><!-- https://github.com/magento-hackathon/GridControl -->
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_oncollectionloadhackathon>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>onCollectionLoadHackathon</method>
+                    </cerebrum_telencephalon_observer_adminhtml_oncollectionloadhackathon>
+                </observers>
+            </core_collection_abstract_load_before>
+            <eav_collection_abstract_load_before>
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_oneavcollectionload>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>onEavCollectionLoad</method>
+                    </cerebrum_telencephalon_observer_adminhtml_oneavcollectionload>
+                </observers>
+            </eav_collection_abstract_load_before>
+            <model_load_after>
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_onmodelload>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>onModelLoad</method>
+                    </cerebrum_telencephalon_observer_adminhtml_onmodelload>
+                </observers>
+            </model_load_after>
+            <controller_action_predispatch>
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_checkconfiguration>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>checkConfiguration</method>
+                    </cerebrum_telencephalon_observer_adminhtml_checkconfiguration>
+                </observers>
+            </controller_action_predispatch>
+            <core_block_abstract_prepare_layout_before>
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_appendcolumngrid>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>appendColumnGrid</method>
+                    </cerebrum_telencephalon_observer_adminhtml_appendcolumngrid>
+                </observers>
+            </core_block_abstract_prepare_layout_before>
+            <core_block_abstract_prepare_layout_before>
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_addmassaction>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>addMassAction</method>
+                    </cerebrum_telencephalon_observer_adminhtml_addmassaction>
+                </observers>
+            </core_block_abstract_prepare_layout_before>
+            <adminhtml_block_html_before>
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_onblockhtmlbefore>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>onBlockHtmlBefore</method>
+                    </cerebrum_telencephalon_observer_adminhtml_onblockhtmlbefore>
+                </observers>
+            </adminhtml_block_html_before>
+            <adminhtml_block_html_before><!-- https://github.com/magento-hackathon/GridControl -->
+                <observers>
+                    <cerebrum_telencephalon_observer_adminhtml_onblockhtmlbeforehackathon>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>onBlockHtmlBeforeHackathon</method>
+                    </cerebrum_telencephalon_observer_adminhtml_onblockhtmlbeforehackathon>
+                </observers>
+            </adminhtml_block_html_before>
+            <!-- FIX AMTY: exibe novos atributos no csv -->
+            <!--<core_layout_block_create_after>
+                <observers>
+                    <amcustomerattr>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>forSearchCustomerGrid</method>
+                    </amcustomerattr>
+                </observers>
+            </core_layout_block_create_after>
+            <eav_collection_abstract_load_before>
+                <observers>
+                    <amcustomerattr>
+                        <type>singleton</type>
+                        <class>telencephalon/adminhtml_observer</class>
+                        <method>modifyCustomerCollection</method>
+                    </amcustomerattr>
+                </observers>
+            </eav_collection_abstract_load_before>-->
+            <!-- FIX AMTY: exibe novos atributos no csv -->
+	    </events><!-- cerebrum->events -->
+
+		<global_search>
+			<log>
+				<class>telencephalon/adminhtml_search_log</class>
+				<acl>telencephalon</acl>
+			</log>
+			<ping>
+				<class>telencephalon/adminhtml_search_ping</class>
+				<acl>telencephalon</acl>
+			</ping>
+			<jadlog>
+				<class>telencephalon/adminhtml_search_jadlog</class>
+				<acl>telencephalon</acl>
+			</jadlog>
+		</global_search>
+	</adminhtml>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<Cerebrum_Telencephalon before="Mage_Adminhtml">Cerebrum_Telencephalon_Adminhtml</Cerebrum_Telencephalon>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<frontend>
+		<routers>
+			<telencephalon>
+				<use>standard</use>
+				<args>
+					<module>Cerebrum_Telencephalon</module>
+					<frontName>telencephalon</frontName>
+				</args>
+			</telencephalon>
+		</routers>
+		<layout>
+			<updates>
+				<cerebrum_telencephalon>
+					<file>cerebrum_telencephalon.xml</file>
+				</cerebrum_telencephalon>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<Cerebrum_Telencephalon>
+					<files>
+						<default>Cerebrum_Telencephalon.csv</default>
+					</files>
+				</Cerebrum_Telencephalon>
+			</modules>
+		</translate>
+
+        <events><!-- cerebrum->events -->
+            <!--<controller_action_layout_load_before>
+                <observers>
+                    <cerebrum_telencephalon_observer_frontend_productpageshipping>
+                        <type>singleton</type>
+                        <model>telencephalon/observer</model>
+                        <method>observeLayoutHandleInitialization</method>
+                    </cerebrum_telencephalon_observer_frontend_productpageshipping>
+                </observers>
+            </controller_action_layout_load_before>-->
+			<controller_action_predispatch>
+				<observers>
+					<cerebrum_telencephalon_observer_frontend_ismobile>
+						<class>telencephalon/observer</class>
+						<method>controller_action_predispatch</method>
+					</cerebrum_telencephalon_observer_frontend_ismobile>
+				</observers>
+			</controller_action_predispatch>
+            <core_block_abstract_to_html_before><!-- injectHTML -->
+                <observers>
+                    <cerebrum_telencephalon_observer_frontend_beforerenderhtml>
+						<type>singleton</type>
+						<class>telencephalon/observer</class>
+                        <method>BeforeRenderHtml</method>
+                    </cerebrum_telencephalon_observer_frontend_beforerenderhtml>
+                </observers>
+            </core_block_abstract_to_html_before>
+            <core_block_abstract_to_html_after><!-- injectHTML -->
+                <observers>
+                    <cerebrum_telencephalon_observer_frontend_afterrenderhtml>
+						<type>singleton</type>
+						<class>telencephalon/observer</class>
+                        <method>AfterRenderHtml</method>
+                    </cerebrum_telencephalon_observer_frontend_afterrenderhtml>
+                </observers>
+            </core_block_abstract_to_html_after>
+            <catalog_product_is_salable_after><!-- Parcela - Catalog, Search -->
+                <observers>
+                    <cerebrum_telencephalon_observer_frontend_aplicaparcelacatalogo>
+                        <class>telencephalon/observer</class>
+                        <method>aplicaParcelaCatalogo</method>
+                    </cerebrum_telencephalon_observer_frontend_aplicaparcelacatalogo>
+                </observers>
+            </catalog_product_is_salable_after>
+            <sales_order_place_before><!-- DB->order->session_id -->
+                <observers>
+                    <cerebrum_telencephalon_observer_frontend_orderplacebefore>
+                        <class>telencephalon/observer</class>
+                        <method>sales_order_place_before</method>
+                    </cerebrum_telencephalon_observer_frontend_orderplacebefore>
+                </observers>
+            </sales_order_place_before>
+        </events><!-- cerebrum->events -->
+
+	</frontend>
+
+    <telencephalon>
+        <productshippingpage>
+            <controller_actions>
+                <catalog_product_view />
+            </controller_actions>
+        </productshippingpage>
+    </telencephalon>
+
+	<default><!-- cerebrum->default -->
+        <system>
+            <adminnotification>
+                <feed_url>www.cerebrum.com.br/notifications_telencephalon.rss</feed_url>
+                <popup_url>widgets.magentocommerce.com/notificationPopup</popup_url>
+                <severity_icons_url>widgets.magentocommerce.com/%s/%s.gif</severity_icons_url>
+                <use_https>0</use_https>
+                <frequency>1</frequency>
+                <last_update>0</last_update>
+            </adminnotification>
+        </system>
+		<telencephalon>
+			<note>
+				<breadcrumbs>1</breadcrumbs>
+				<rss>1</rss>
+				<meta_title>Notes</meta_title>
+				<tree>1</tree>
+				<recursion>0</recursion>
+			</note>
+			<cerebrum_general>
+				<debug>0</debug>
+				<script_ebit><![CDATA[]]></script_ebit>
+				<active_product_thumbnails_grouped_item>1</active_product_thumbnails_grouped_item>
+				<active_parcela_vitrine>1</active_parcela_vitrine>
+				<active_effect_accordion>1</active_effect_accordion>
+				<active_shipping_product_view>1</active_shipping_product_view>
+				<!--<template_mobile>default/iphone</template_mobile>-->
+				<sitemap_buscape>seuemail@dns.com.br</sitemap_buscape>
+				<active_style_iwd_onepagecheckout>1</active_style_iwd_onepagecheckout>
+				<active_fix_iwd_onepagecheckout>1</active_fix_iwd_onepagecheckout>
+				<active_hackathon_gridControl_sales>1</active_hackathon_gridControl_sales>
+			</cerebrum_general>
+			<telencephalon_libraries>
+				<active_jquery>1</active_jquery>
+				<active_magic_css>1</active_magic_css>
+				<active_css_semanticui>1</active_css_semanticui>
+				<active_js_semanticui>1</active_js_semanticui>
+				<active_favicojs>1</active_favicojs>
+				<active_nprogress>1</active_nprogress>
+			</telencephalon_libraries>
+			<enderecador_correios>
+				<nome>NOME | EMPRESA | NOME DA PROMOÇÂO</nome>
+				<empresa>NOME | EMPRESA | NOME DA PROMOÇÂO (2ª LINHA)</empresa>
+				<cep>08250-580</cep>
+				<endereco>RUA DANIEL MONGOLO</endereco>
+				<numero>303</numero>
+				<complemento>Apto</complemento>
+				<telefone>11 2205-1559</telefone>
+				<bairro>ITAQUERA</bairro>
+				<cidade>SÃO PAULO/SP</cidade>
+				<uf>SP</uf>
+				<rotulos_folha>2</rotulos_folha>
+				<tipo_impressao>1</tipo_impressao>
+				<mao_propria>1</mao_propria>
+			</enderecador_correios>
+		</telencephalon>
+		<customer>
+			<cerebrum_general>
+				<active_ico_gravatar>0</active_ico_gravatar>
+				<active_js_forms_support>0</active_js_forms_support>
+				<active_address_fields_create_account>0</active_address_fields_create_account>
+			</cerebrum_general>
+		</customer>
+        <carriers>
+            <cerebrum_correios>
+				<model>Cerebrum_Telencephalon_Model_Carrier_Correios</model>
+                <active>0</active>
+                <title>Correios (powered by CEREBRUM)</title>
+                <!-- DEFAULT -->
+				<active_tracking_correios>1</active_tracking_correios>
+                <cod_admin></cod_admin>
+                <senha_admin></senha_admin>
+                <formato>1</formato>
+                <valor_declarado>0</valor_declarado>
+                <aviso_recebimento>0</aviso_recebimento>
+                <mao_propria>0</mao_propria>
+                <check_dimensions>0</check_dimensions>
+				<showservice>1</showservice>
+                <!-- GLOBAL -->
+				<showmethod>1</showmethod>
+				<free_method></free_method>
+                <allowed_methods>40010,40215,40169,40290,40045,41106</allowed_methods>
+                <!-- OPTIONS -->
+                <min_order_value>0</min_order_value>
+                <max_order_value>10000</max_order_value>
+                <weight_type>kg</weight_type>
+                <prazo_entrega>1</prazo_entrega>
+                <msgprazo>%s - Em média %d dia(s), %s</msgprazo>
+                <add_prazo>0</add_prazo>
+                <handling_fee>0</handling_fee>
+                <ws_timeout>30</ws_timeout>
+                <!-- VOLUME -->
+                <volume_weight_min>5</volume_weight_min>
+                <comprimento_padrao>16</comprimento_padrao>
+                <largura_padrao>11</largura_padrao>
+                <altura_padrao>2</altura_padrao>
+                <diametro_padrao>0</diametro_padrao>
+                <!-- http://www.correios.com.br/encomendas/prazo/Formato.cfm -->
+                <volume_validation>
+                    <comprimento_min>16</comprimento_min>
+                    <comprimento_max>105</comprimento_max>
+                    <largura_min>11</largura_min>
+                    <largura_max>105</largura_max>
+                    <altura_min>2</altura_min>
+                    <altura_max>105</altura_max>
+					<sum_min>29</sum_min>
+                    <sum_max>200</sum_max>
+                </volume_validation>
+            </cerebrum_correios>
+            <cerebrum_correios_exportafacil>
+				<model>Cerebrum_Telencephalon_Model_Carrier_Correiosexportafacil</model>
+                <active>0</active>
+                <title>Correios Exporta Fácil (powered by CEREBRUM)</title>
+                <!-- DEFAULT -->
+                <uf_origem>DF</uf_origem>
+                <localidade>C</localidade>
+				<showservice>1</showservice>
+                <!-- GLOBAL -->
+				<showmethod>1</showmethod>
+				<free_method></free_method>
+                <allowed_methods>110,128,209</allowed_methods>
+                <!-- OPTIONS -->
+                <min_order_value>0</min_order_value>
+                <max_order_value>10000</max_order_value>
+                <weight_type>kg</weight_type>
+                <prazo_entrega>1</prazo_entrega>
+                <msgprazo>%s - Em média %d dia(s), %s</msgprazo>
+                <add_prazo>0</add_prazo>
+                <handling_fee>0</handling_fee>
+                <ws_timeout>30</ws_timeout>
+                <!-- VOLUME -->
+                <comprimento_padrao>16</comprimento_padrao>
+                <largura_padrao>11</largura_padrao>
+                <altura_padrao>2</altura_padrao>
+                <!-- http://www.correios.com.br/encomendas/prazo/Formato.cfm -->
+                <volume_validation>
+                    <comprimento_min>16</comprimento_min>
+                    <comprimento_max>105</comprimento_max>
+                    <largura_min>11</largura_min>
+                    <largura_max>105</largura_max>
+                    <altura_min>2</altura_min>
+                    <altura_max>105</altura_max>
+                    <sum_max>200</sum_max>
+                </volume_validation>
+            </cerebrum_correios_exportafacil>
+            <cerebrum_jadlog>
+				<model>Cerebrum_Telencephalon_Model_Carrier_Jadlog</model>
+                <active>0</active>
+                <title>Jadlog (powered by CEREBRUM)</title>
+                <!-- DEFAULT -->
+                <remetente_cnpj>51742344000107</remetente_cnpj>
+                <cod_admin></cod_admin>
+                <senha_admin>Cms2k3A8</senha_admin>
+                <tipo_seguro>N</tipo_seguro>
+                <frete_apagar_destino>N</frete_apagar_destino>
+                <tipo_entrega>D</tipo_entrega>
+                <valor_coleta>10,00</valor_coleta>
+				<showservice>1</showservice>
+                <!-- GLOBAL -->
+				<showmethod>1</showmethod>
+				<free_method></free_method>
+                <allowed_methods>0,3,4,5,6,7,9,10,12,14</allowed_methods>
+                <!-- OPTIONS -->
+                <min_order_value>0</min_order_value>
+                <max_order_value>10000</max_order_value>
+                <weight_type>kg</weight_type>
+                <handling_fee>0</handling_fee>
+                <ws_timeout>30</ws_timeout>
+                <!-- VOLUME -->
+                <comprimento_padrao>16</comprimento_padrao>
+                <largura_padrao>11</largura_padrao>
+                <altura_padrao>2</altura_padrao>
+            </cerebrum_jadlog>
+            <cerebrum_jamef>
+				<model>Cerebrum_Telencephalon_Model_Carrier_Jamef</model>
+                <active>0</active>
+                <title>Jamef (powered by CEREBRUM)</title>
+                <!-- DEFAULT -->
+                <remetente_cnpj>12417449000139</remetente_cnpj>
+                <filial_coleta_jamef>02</filial_coleta_jamef>
+                <municipio_origem>Belo Horizonte</municipio_origem>
+                <estado_emissao>MG</estado_emissao>
+				<showservice>1</showservice>
+                <!-- GLOBAL -->
+				<showmethod>1</showmethod>
+				<free_method></free_method>
+                <allowed_methods>1,2</allowed_methods>
+                <tipo_produto>000004</tipo_produto>
+                <!-- OPTIONS -->
+                <min_order_value>0</min_order_value>
+                <max_order_value>10000</max_order_value>
+                <weight_type>kg</weight_type>
+                <handling_fee>0</handling_fee>
+                <ws_timeout>30</ws_timeout>
+                <!-- VOLUME -->
+                <comprimento_padrao>16</comprimento_padrao>
+                <largura_padrao>11</largura_padrao>
+                <altura_padrao>2</altura_padrao>
+            </cerebrum_jamef>
+            <cerebrum_braspress>
+				<model>Cerebrum_Telencephalon_Model_Carrier_Braspress</model>
+                <active>0</active>
+                <title>Braspress (powered by CEREBRUM)</title>
+                <!-- DEFAULT -->
+                <remetente_documento>44015477000116</remetente_documento>
+                <shipping_type>1</shipping_type>
+				<showservice>1</showservice>
+                <!-- GLOBAL -->
+				<showmethod>1</showmethod>
+				<free_method></free_method>
+                <allowed_methods>R,A</allowed_methods>
+                <!-- OPTIONS -->
+                <min_order_value>0</min_order_value>
+                <max_order_value>10000</max_order_value>
+                <weight_type>kg</weight_type>
+                <prazo_entrega>1</prazo_entrega>
+                <msgprazo>%s - Em média %d dia(s), %s</msgprazo>
+                <add_prazo>0</add_prazo>
+                <handling_fee>0</handling_fee>
+                <ws_timeout>30</ws_timeout>
+                <!-- VOLUME -->
+                <comprimento_padrao>16</comprimento_padrao>
+                <largura_padrao>11</largura_padrao>
+                <altura_padrao>2</altura_padrao>
+            </cerebrum_braspress>
+            <!--<cerebrum_alfa>
+				<model>Cerebrum_Telencephalon_Model_Carrier_Alfa</model>
+                <active>0</active>
+                <title>Alfa Transportes (powered by CEREBRUM)</title>
+                DEFAULT
+                <chave_acesso>842zw7jr6us1ys2zbzy1tq562051</chave_acesso>
+				<showservice>1</showservice>
+                GLOBAL
+				<showmethod>1</showmethod>
+				<free_method></free_method>
+                <allowed_methods>A</allowed_methods>
+                OPTIONS
+                <min_order_value>0</min_order_value>
+                <max_order_value>10000</max_order_value>
+                <weight_type>kg</weight_type>
+                <prazo_entrega>1</prazo_entrega>
+                <msgprazo>%s - Em média %d dia(s), %s</msgprazo>
+                <add_prazo>0</add_prazo>
+                <handling_fee>0</handling_fee>
+                <ws_timeout>30</ws_timeout>
+                VOLUME
+                <comprimento_padrao>16</comprimento_padrao>
+                <largura_padrao>11</largura_padrao>
+                <altura_padrao>2</altura_padrao>
+            </cerebrum_alfa>-->
+            <cerebrum_sisfrete>
+				<model>Cerebrum_Telencephalon_Model_Carrier_Sisfrete</model>
+                <active>0</active>
+                <title>SisFrete (powered by CEREBRUM)</title>
+                <!-- DEFAULT -->
+                <token>5A01DA721E25D7A9340CF7196EACC0C5</token>
+				<showservice>1</showservice>
+                <!-- GLOBAL -->
+				<showmethod>1</showmethod>
+				<free_method></free_method>
+                <allowed_methods>S</allowed_methods>
+                <!-- OPTIONS -->
+                <min_order_value>0</min_order_value>
+                <max_order_value>10000</max_order_value>
+                <weight_type>kg</weight_type>
+                <prazo_entrega>1</prazo_entrega>
+                <msgprazo>%s - Em média %d dia(s), %s</msgprazo>
+                <add_prazo>0</add_prazo>
+                <handling_fee>0</handling_fee>
+                <ws_timeout>30</ws_timeout>
+                <!-- VOLUME -->
+                <comprimento_padrao>16</comprimento_padrao>
+                <largura_padrao>11</largura_padrao>
+                <altura_padrao>2</altura_padrao>
+            </cerebrum_sisfrete>
+        </carriers>
+		<payment>
+			<cerebrum_redecard>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Redecard_Method</model>
+				<payment_action>authorize</payment_action>
+				<order_status>pending</order_status>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Redecard - (powered by CEREBRUM)</title>
+				<buypage>redecard</buypage>
+				<numero_filiacao>35059311</numero_filiacao>
+				<card_types>visa,mastercard,diners,hiper,hipercard</card_types>
+				<installments_establishment>a:3:{s:18:"_1392838103436_436";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1392838106250_250";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"2";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1392838106922_922";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"3";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}}</installments_establishment>
+				<installments_issuer>a:3:{s:18:"_1392838104249_249";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"4";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1392838114569_569";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"5";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1392838115217_217";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"6";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}}</installments_issuer>
+				<tipo_calculo>1</tipo_calculo>
+				<checkout_form_element>radio</checkout_form_element>
+				<bandeiras_por_linha>9</bandeiras_por_linha>
+				<generate_inovice>1</generate_inovice>
+				<auto_capture>1</auto_capture>
+			</cerebrum_redecard>
+			<cerebrum_cielo>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Cielo_Method</model>
+				<payment_action>authorize</payment_action>
+				<order_status>pending</order_status>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Cielo - (powered by CEREBRUM)</title>
+				<environment>https://qasecommerce.cielo.com.br</environment>
+				<ec_numero>1006993069</ec_numero>
+				<ec_chave>25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3</ec_chave>
+				<buypage>loja</buypage>
+				<ec_numero>1001734898</ec_numero>
+				<ec_chave>e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832</ec_chave>
+				<buypage>cielo</buypage>
+				<autorize>3</autorize>
+				<auto_capture>1</auto_capture>
+                <softdescriptor>ACME Corporation</softdescriptor>
+				<ssl_file></ssl_file>
+				<card_types>visa,mastercard,diners,discover,elo,amex,jcb,aura</card_types>
+				<installments_establishment>a:3:{s:18:"_1392837170257_257";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1392837175271_271";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"2";s:4:"rate";s:1:"2";s:11:"price_range";s:5:"0-100";}s:18:"_1392837175942_942";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"3";s:4:"rate";s:2:"3%";s:11:"price_range";s:5:"0-100";}}</installments_establishment>
+				<installments_issuer>a:3:{s:18:"_1392837171217_217";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"4";s:4:"rate";s:10:"1.99% a.m.";s:11:"price_range";s:5:"0-100";}s:18:"_1392837181964_964";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"5";s:4:"rate";s:10:"1.99% a.m.";s:11:"price_range";s:5:"0-100";}s:18:"_1392837182904_904";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"6";s:4:"rate";s:10:"1.99% a.m.";s:11:"price_range";s:5:"0-100";}}</installments_issuer>
+				<tipo_calculo>1</tipo_calculo>
+				<checkout_form_element>radio</checkout_form_element>
+				<bandeiras_por_linha>10</bandeiras_por_linha>
+				<place_redirect>dhtml</place_redirect>
+				<generate_inovice>1</generate_inovice>
+				<curlopt_sslversion>1</curlopt_sslversion>
+			</cerebrum_cielo>
+			<cerebrum_americanexpress>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Americanexpress_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>AmericanExpress - (powered by CEREBRUM)</title>
+				<numero_filiacao></numero_filiacao>
+				<codigo_acesso></codigo_acesso>
+				<user></user>
+				<password></password>
+				<card_types>amex</card_types>
+				<installments_establishment>a:3:{s:18:"_1392837939868_868";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1392837941170_170";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"2";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1392837941835_835";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"3";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}}</installments_establishment>
+				<tipo_calculo>1</tipo_calculo>
+				<checkout_form_element>radio</checkout_form_element>
+				<bandeiras_por_linha>9</bandeiras_por_linha>
+				<generate_inovice>1</generate_inovice>
+			</cerebrum_americanexpress>
+			<cerebrum_itaushopline>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Itaushopline_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>ItauShopline - (powered by CEREBRUM)</title>
+				<codigo_empresa>J0026376210001060000011110</codigo_empresa>
+				<chave_criptografia>S8G9F8C2E3R4K2FD</chave_criptografia>
+				<vencimento>5</vencimento>
+				<obs_ad_1>- Sr. Caixa, cobrar multa de 2% após o vencimento</obs_ad_1>
+				<obs_ad_2>- Receber até 10 dias após o vencimento</obs_ad_2>
+				<obs_ad_3>- acme@acme.com.br - Tel .: (99) 9999-9999</obs_ad_3>
+				<obs>3</obs>
+				<submit_url>https://shopline.itau.com.br/shopline/shopline.asp</submit_url>
+				<query_url>https://shopline.itau.com.br/shopline/consulta.asp</query_url>
+				<generate_inovice>1</generate_inovice>
+			</cerebrum_itaushopline>
+			<cerebrum_bradesco>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Bradesco_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Bradesco Comércio Eletrônico SPS - (powered by CEREBRUM)</title>
+                <razao_social>ACME Corporation S.A.</razao_social>
+                <numero_loja>000000406</numero_loja>
+                <numero_agencia>0001</numero_agencia>
+                <numero_conta_corrente>1234567</numero_conta_corrente>
+                <shopping_id>0</shopping_id>
+                <carteira>25</carteira>
+                <due_date>5</due_date>
+				<environment>http://mupteste.comercioeletronico.com.br</environment>
+<assinatura_boleto>233542AD8CA027BA56B63C2E5A530029F68AACD5E152234BFA1446836220CAA53BD3EA92B296CA94A313E4E438AD64C1E4CF2CBAD6C67DAA00DE7AC2C907A99979A5AB53BFEF1FD6DD3D3A24B278536929F7F747907F7F922C6C0F3553F8C6E29D68E1F6E0CA2566C46C63A2DD65AFF7DF4802FBF4811CA58619B33989B8DDF8</assinatura_boleto>
+                <assinatura_transferencia>7B94A66D138FFD2AEBFBE3D8E0BDBD02700A5B793F017B0C8B40252C3680F9CD05C7EEB1A395C84916425DC318F7F07518D416194FB077AA47A8DBD2B35B2E4C376A23385FDD9B0AA3E7D0712B373B9EFD11028ADFC763B7EAD4A3E70FC8BE4A3CF4DA804E692A6173F4B81F568D7A9A38F663106149A34409B3C48147FBAA12</assinatura_transferencia>
+				<generate_inovice>1</generate_inovice>
+			</cerebrum_bradesco>
+			<cerebrum_bancodobrasil>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Bancodobrasil_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Banco do Brasil Comércio Eletrônico - (powered by CEREBRUM)</title>
+                <dias_vencimento>5</dias_vencimento>
+                <codigo_convenio>303258</codigo_convenio>
+                <codigo_cobranca></codigo_cobranca>
+                <mensagem_loja>- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999</mensagem_loja>
+			</cerebrum_bancodobrasil>
+			<cerebrum_banrisul_banricompras>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Banrisul_Banricompras</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Banco Banrisul / Banricompras - (powered by CEREBRUM)</title>
+                <codigo_rede>281120002</codigo_rede>
+                <codigo_estabelecimento>281120001</codigo_estabelecimento>
+				<card_types>pgta,pgtp,pgtx,pgbc</card_types>
+				<installments_establishment>a:5:{s:18:"_1393342681655_655";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1393342687750_750";a:4:{s:10:"card_types";s:4:"pgtp";s:12:"installments";s:1:"2";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1393342688567_567";a:4:{s:10:"card_types";s:4:"pgtp";s:12:"installments";s:1:"3";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1393342702603_603";a:4:{s:10:"card_types";s:4:"pgtx";s:12:"installments";s:1:"2";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1393342705968_968";a:4:{s:10:"card_types";s:4:"pgtx";s:12:"installments";s:1:"3";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}}</installments_establishment>
+				<installments_issuer>a:2:{s:18:"_1393342683760_760";a:4:{s:10:"card_types";s:4:"pgtp";s:12:"installments";s:1:"4";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1393342694393_393";a:4:{s:10:"card_types";s:4:"pgtp";s:12:"installments";s:1:"5";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}}</installments_issuer>
+				<tipo_calculo>1</tipo_calculo>
+				<checkout_form_element>radio</checkout_form_element>
+				<bandeiras_por_linha>9</bandeiras_por_linha>
+				<dias_vencimento>5</dias_vencimento>
+			</cerebrum_banrisul_banricompras>
+			<cerebrum_banrisul_boleto>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Banrisul_Boleto</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Banrisul - (powered by CEREBRUM)</title>
+				<codigo_cedente>281120002</codigo_cedente>
+				<dias_vencimento>5</dias_vencimento>
+                <observacoes><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></observacoes>
+			</cerebrum_banrisul_boleto>
+			<cerebrum_boleto_bb>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Bb</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Banco do Brasil - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme
+- Acme - http://www.acme.com.br/]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <agency>9999</agency>
+                <account>99999</account>
+                <agreement_number>7777777</agreement_number>
+                <contract_number>999999</contract_number>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_bb>
+			<cerebrum_boleto_bradesco>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Bradesco</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Banco Bradesco - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme
+- Acme - http://www.acme.com.br/]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <agency>1172</agency>
+                <agency_dv>0</agency_dv>
+                <account>0403005</account>
+                <account_dv>2</account_dv>
+                <conta_cedente>0403005</conta_cedente>
+                <conta_cedente_dv>2</conta_cedente_dv>
+                <carteira>06</carteira>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_bradesco>
+			<cerebrum_boleto_itau>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Itau</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Banco Itaú - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme
+- Acme - http://www.acme.com.br/]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <agency>1565</agency>
+                <account>13877</account>
+                <account_dv>4</account_dv>
+                <carteira>175</carteira>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_itau>
+			<cerebrum_boleto_santander_banespa>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Santanderbanespa</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Banco Santander-Banespa - (Carteira 102 - Sem registro) - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme
+- Acme - http://www.acme.com.br/]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <codigo_cliente>0707077</codigo_cliente>
+                <ponto_venda>1333</ponto_venda>
+                <aceite>N</aceite>
+                <especie_doc>DM</especie_doc>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_santander_banespa>
+			<cerebrum_boleto_banespa>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Banespa</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Banco Santander-Banespa - (Carteira COB - Sem registro) - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme
+- Acme - http://www.acme.com.br/]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <codigo_cedente>40013012168</codigo_cedente>
+                <ponto_venda>400</ponto_venda>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_banespa>
+			<cerebrum_boleto_cef>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Cef</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Caixa Econômica Federal - SR / CR (SICOB) - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme - Acme - http://www.acme.com.br/
+- SAC CAIXA 0800 726 0101, Ouvidoria CAIXA 0800 725 7474 , Deficiente Auditivo 0800 726 2492
+- Mais informações junto a Caixa acesse: http://www1.caixa.gov.br/atendimento/telefones_da_caixa.asp]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <agency>1565</agency>
+                <account>13877</account>
+                <account_dv>4</account_dv>
+                <conta_cedente>87000000414</conta_cedente>
+                <conta_cedente_dv>3</conta_cedente_dv>
+                <carteira>SR</carteira>
+                <inicio_nosso_numero>80</inicio_nosso_numero>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_cef>
+			<cerebrum_boleto_cef_sigcb>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Cefsigcb</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Caixa Econômica Federal - SR / CR (SIGCB) - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme - Acme - http://www.acme.com.br/
+- SAC CAIXA 0800 726 0101, Ouvidoria CAIXA 0800 725 7474 , Deficiente Auditivo 0800 726 2492
+- Mais informações junto a Caixa acesse: http://www1.caixa.gov.br/atendimento/telefones_da_caixa.asp]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <agency>1234</agency>
+                <account>123</account>
+                <account_dv>0</account_dv>
+                <conta_cedente>123456</conta_cedente>
+                <carteira>SR</carteira>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_cef_sigcb>
+			<cerebrum_boleto_hsbc>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Hsbc</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Banco HSBC - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme
+- Acme - http://www.acme.com.br/]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <codigo_cedente>1122334</codigo_cedente>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_hsbc>
+			<cerebrum_boleto_bancoob>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Boleto_Bancoob</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Boleto Bancário - Bancoob - (powered by CEREBRUM)</title>
+                <due_date>5</due_date>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+                <informations><![CDATA[- Pagamento de Compra na Loja Acme
+- Acme - http://www.acme.com.br/]]></informations>
+                <identification>ACME Corporation S.A.</identification>
+                <cpf_cnpj>000.000.000-00</cpf_cnpj>
+                <address>Rua Daniel Mongolo, 303 - Itaquera</address>
+                <city_region>São Paulo - SP - CEP 08250-580</city_region>
+                <transferor>ACME Corporation - CNPJ: 000.000.000/0000-00</transferor>
+                <agency>9999</agency>
+                <account>99999</account>
+                <agreement_number>7777777</agreement_number>
+                <modalidade_cobranca>01</modalidade_cobranca>
+                <numero_parcela>001</numero_parcela>
+                <carteira>1</carteira>
+                <taxa_juros>2.95</taxa_juros>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_boleto_bancoob>
+			<cerebrum_pagseguro>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Pagseguro_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>PagSeguro - (powered by CEREBRUM)</title>
+                <email></email>
+                <token></token>
+                <charset>UTF-8</charset>
+				<generate_inovice>1</generate_inovice>
+				<active_logo>1</active_logo>
+				<active_expresscheckout>1</active_expresscheckout>
+			</cerebrum_pagseguro>
+			<!--<cerebrum_pagseguro_transparente>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Pagseguro_Transparente_Method</model>
+				<active>1</active>
+				<sort_order>1</sort_order>
+				<title>PagSeguro Transparente - (powered by CEREBRUM)</title>
+
+                <payment_action>order</payment_action>
+                <order_status>pending</order_status>
+
+				<payment_types>BoletoBradesco,BancoDoBrasil,Bradesco,Banrisul,Itau,AmericanExpress,Diners,Mastercard,Hipercard,Visa</payment_types>
+				<installments_establishment>a:3:{s:18:"_1414436943543_543";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1414436944783_783";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"2";s:4:"rate";s:1:"2";s:11:"price_range";s:3:"0-1";}s:18:"_1414436945447_447";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"3";s:4:"rate";s:2:"3%";s:11:"price_range";s:3:"0-1";}}</installments_establishment>
+
+                <merchant_email>cerebrum@cerebrum.com.br</merchant_email>
+                <token>2e/C7Kno1j5ZLnZBxnGbw6L9/w8RdCZul3FWdhDknpg=</token>
+                <sandbox>1</sandbox>
+                <sandbox_merchant_email>cerebrum@cerebrum.com.br</sandbox_merchant_email>
+                <sandbox_token>2e/C7Kno1j5ZLnZBxnGbw6L9/w8RdCZul3FWdhDknpg=</sandbox_token>
+                <ws_url>https://ws.pagseguro.uol.com.br/v2/</ws_url>
+                <js_url>https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js</js_url>
+                <sandbox_ws_url>https://ws.sandbox.pagseguro.uol.com.br/v2/</sandbox_ws_url>
+                <sandbox_js_url>https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js</sandbox_js_url>
+
+			</cerebrum_pagseguro_transparente>-->
+			<cerebrum_meucheckout>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Meucheckout_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Cielo / Checkout Cielo - (powered by CEREBRUM)</title>
+				<environment>https://cieloecommerce.cielo.com.br/Transactional/Order/Index</environment>
+                <merchant_id>586affdf-9a7b-46ae-adfe-d42f40f729ba</merchant_id>
+                <soft_descriptor>ACME</soft_descriptor>
+                <charset>UTF-8</charset>
+				<generate_inovice>1</generate_inovice>
+				<active_logo>1</active_logo>
+				<active_expresscheckout>1</active_expresscheckout>
+				<shippingtype_expresscheckout>Correios</shippingtype_expresscheckout>
+				<antifraude_enabled>1</antifraude_enabled>
+				<place_redirect>dhtml</place_redirect>
+			</cerebrum_meucheckout>
+			<cerebrum_pagador>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Pagador_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Pagador BRASPAG® - (powered by CEREBRUM)</title>
+				<buypage>WebCheckout</buypage>
+				<environment>0</environment>
+                <merchant_id>C79FE95C-0068-E311-93FD-0026B939D54B</merchant_id>
+				<payment_types>06,07,08,09,10,13,14,124,551,11,12,15,30,92,123,552,997,500,501,502,503,504,543,544,545,524,525,526,527,528,529,530,531,532,509,510,511,548,523,533,539,546,530,532,534,505,506,507,508,133,135,137,512,513,514,515,516,517,518,519,535,536,537,538,540,541,542</payment_types>
+				<installments_establishment>a:3:{s:18:"_1389208983120_120";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1389208986250_250";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"2";s:4:"rate";s:1:"2";s:11:"price_range";s:4:"0-10";}s:18:"_1389208986983_983";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"3";s:4:"rate";s:2:"3%";s:11:"price_range";s:4:"0-10";}}</installments_establishment>
+				<installments_issuer>a:3:{s:18:"_1394462736147_147";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"3";s:4:"rate";s:10:"1.99% a.m.";s:11:"price_range";s:4:"0-10";}s:18:"_1394462739105_105";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"4";s:4:"rate";s:10:"1.99% a.m.";s:11:"price_range";s:4:"0-10";}s:18:"_1394462739889_889";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"5";s:4:"rate";s:10:"1.99% a.m.";s:11:"price_range";s:4:"0-10";}}</installments_issuer>
+				<savecreditcard>0</savecreditcard>
+				<vencimento>5</vencimento>
+				<instructions>- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999</instructions>
+				<transaction_types>2</transaction_types>
+				<tipo_calculo>1</tipo_calculo>
+				<place_redirect>dhtml</place_redirect>
+				<generate_inovice>1</generate_inovice>
+			</cerebrum_pagador>
+			<cerebrum_bcash>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Bcash_Method</model>
+				<payment_action>authorize</payment_action>
+				<!--<order_status>pending</order_status>-->
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Bcash - (powered by CEREBRUM)</title>
+				<environment>https://www.bcash.com.br/checkout/pay/</environment>
+				<buypage>WebCheckout</buypage>
+                <email_loja>lojamodelo@pagamentodigital.com.br</email_loja>
+                <consumer_key>1f5c18f0e65699f2568ca2751654fa7fc5ce94b0</consumer_key>
+                <token>2948208E715B986F25A5E</token>
+                <pre_payment>1</pre_payment>
+				<payment_types>10,58,59,60,61,62,1,2,37,45,55,56,63</payment_types>
+				<installments_establishment>a:3:{s:18:"_1394458222919_919";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1394458224354_354";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"2";s:4:"rate";s:1:"2";s:11:"price_range";s:5:"0-100";}s:18:"_1394458225101_101";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"3";s:4:"rate";s:2:"3%";s:11:"price_range";s:5:"0-100";}}</installments_establishment>
+				<installments_issuer></installments_issuer>
+				<tipo_calculo>1</tipo_calculo>
+				<checkout_form_element>radio</checkout_form_element>
+				<bandeiras_por_linha>9</bandeiras_por_linha>
+				<place_redirect>dhtml</place_redirect>
+				<generate_inovice>1</generate_inovice>
+			</cerebrum_bcash>
+			<cerebrum_moip>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Moip_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>Moip - (powered by CEREBRUM)</title>
+				<buypage>WebCheckout</buypage>
+				<environment>0</environment>
+				<key>ABABABABABABABABABABABABABABABABABABABAB</key>
+                <token>01010101010101010101010101010101</token>
+				<payment_types>BoletoBradesco,BancoDoBrasil,Bradesco,Banrisul,Itau,AmericanExpress,Diners,Mastercard,Hipercard,Visa</payment_types>
+				<installments_establishment>a:3:{s:18:"_1390328005704_704";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1390328008353_353";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"2";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}s:18:"_1390328009257_257";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"3";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}}</installments_establishment>
+				<tipo_calculo>1</tipo_calculo>
+				<checkout_form_element>radio</checkout_form_element>
+				<bandeiras_por_linha>9</bandeiras_por_linha>
+				<place_redirect>dhtml</place_redirect>
+				<generate_inovice>1</generate_inovice>
+			</cerebrum_moip>
+			<cerebrum_mercadopago>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Mercadopago_Method</model>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>MercadoPago - (powered by CEREBRUM)</title>
+				<client_id>12565</client_id>
+                <client_secret>vqOIAcF50kPaOy8fHj2icUnQo5qn7sDR</client_secret>
+				<place_redirect>dhtml</place_redirect>
+				<generate_inovice>1</generate_inovice>
+			</cerebrum_mercadopago>
+			<!--<cerebrum_erede>
+				<group>telencephalon</group>
+				<model>Cerebrum_Telencephalon_Model_Payment_Erede_Method</model>
+				<payment_action>authorize</payment_action>
+				<order_status>pending</order_status>
+				<active>0</active>
+				<sort_order>1</sort_order>
+				<title>e-Rede - (powered by CEREBRUM)</title>
+
+                <softdescriptor>ACME Corporation</softdescriptor>
+				<buypage>Transparente</buypage>
+                <environment>homologation</environment>
+				<acquirercode>046716653</acquirercode>
+				<password></password>
+                <pre_payment>1</pre_payment>
+				<payment_types>11,12,13,14,15,16,credito,debito</payment_types>
+				<installments_establishment>a:4:{s:18:"_1399409952122_122";a:4:{s:10:"card_types";s:1:"0";s:12:"installments";s:1:"1";s:4:"rate";s:0:"";s:11:"price_range";s:0:"";}s:18:"_1399409956647_647";a:4:{s:10:"card_types";s:7:"credito";s:12:"installments";s:1:"2";s:4:"rate";s:1:"2";s:11:"price_range";s:5:"0-100";}s:18:"_1399409957506_506";a:4:{s:10:"card_types";s:7:"credito";s:12:"installments";s:1:"3";s:4:"rate";s:2:"3%";s:11:"price_range";s:5:"0-100";}s:18:"_1399409960676_676";a:4:{s:10:"card_types";s:7:"credito";s:12:"installments";s:1:"4";s:4:"rate";s:0:"";s:11:"price_range";s:5:"0-100";}}</installments_establishment>
+				<installments_issuer></installments_issuer>
+				<tipo_calculo>1</tipo_calculo>
+				<risk>1</risk>
+				<merchant_location>São Paulo</merchant_location>
+                <due_date>5</due_date>
+                <interest_per_day>0</interest_per_day>
+                <overdue_fine>0</overdue_fine>
+                <instructions><![CDATA[- Sr. Caixa, cobrar multa de 2% após o vencimento
+- Receber até 10 dias após o vencimento
+- Em caso de dúvidas entre em contato conosco: acme@acme.com.br - Tel .: (99) 9999-9999]]></instructions>
+
+				<place_redirect>dhtml</place_redirect>
+				<generate_inovice>1</generate_inovice>
+			</cerebrum_erede>-->
+		</payment>
+		<fraudcheck>
+            <cerebrum_fcontrol>
+                <active>0</active>
+                <environment>0</environment>
+                <username>meuLoginFcontrol</username>
+                <password>minhaSenhaFcontrol</password>
+                <serialized>a:20:{s:18:"_1382026089307_307";a:2:{s:9:"paymentId";s:6:"ccsave";s:10:"fcontrolId";s:1:"1";}s:18:"_1382026090939_939";a:2:{s:9:"paymentId";s:7:"checkmo";s:10:"fcontrolId";s:2:"11";}s:18:"_1382026091543_543";a:2:{s:9:"paymentId";s:17:"cerebrum_redecard";s:10:"fcontrolId";s:1:"1";}s:18:"_1382026092142_142";a:2:{s:9:"paymentId";s:14:"cerebrum_cielo";s:10:"fcontrolId";s:1:"1";}s:18:"_1382026092750_750";a:2:{s:9:"paymentId";s:24:"cerebrum_americanexpress";s:10:"fcontrolId";s:1:"5";}s:18:"_1382026093331_331";a:2:{s:9:"paymentId";s:21:"cerebrum_itaushopline";s:10:"fcontrolId";s:2:"11";}s:18:"_1382026093907_907";a:2:{s:9:"paymentId";s:17:"cerebrum_bradesco";s:10:"fcontrolId";s:2:"11";}s:18:"_1382026094492_492";a:2:{s:9:"paymentId";s:22:"cerebrum_bancodobrasil";s:10:"fcontrolId";s:2:"11";}s:18:"_1382026095126_126";a:2:{s:9:"paymentId";s:30:"cerebrum_banrisul_banricompras";s:10:"fcontrolId";s:2:"11";}s:18:"_1382026095780_780";a:2:{s:9:"paymentId";s:24:"cerebrum_banrisul_boleto";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026096425_425";a:2:{s:9:"paymentId";s:18:"cerebrum_boleto_bb";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026154114_114";a:2:{s:9:"paymentId";s:24:"cerebrum_boleto_bradesco";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026154859_859";a:2:{s:9:"paymentId";s:20:"cerebrum_boleto_itau";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026155597_597";a:2:{s:9:"paymentId";s:33:"cerebrum_boleto_santander_banespa";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026156211_211";a:2:{s:9:"paymentId";s:23:"cerebrum_boleto_banespa";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026156931_931";a:2:{s:9:"paymentId";s:19:"cerebrum_boleto_cef";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026157611_611";a:2:{s:9:"paymentId";s:20:"cerebrum_boleto_hsbc";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026158395_395";a:2:{s:9:"paymentId";s:23:"cerebrum_boleto_bancoob";s:10:"fcontrolId";s:2:"12";}s:18:"_1382026159115_115";a:2:{s:9:"paymentId";s:18:"cerebrum_pagseguro";s:10:"fcontrolId";s:1:"1";}s:18:"_1382026159834_834";a:2:{s:9:"paymentId";s:20:"cerebrum_meucheckout";s:10:"fcontrolId";s:1:"1";}}</serialized>
+            </cerebrum_fcontrol>
+            <cerebrum_clearsale_start>
+                <active>0</active>
+                <environment>https://homolog.clearsale.com.br/start/Entrada/EnviarPedido.aspx</environment>
+                <entitycode></entitycode>
+                <serialized>a:20:{s:18:"_1382028227734_734";a:2:{s:9:"paymentId";s:6:"ccsave";s:11:"clearsaleId";s:1:"1";}s:17:"_1382028229036_36";a:2:{s:9:"paymentId";s:7:"checkmo";s:11:"clearsaleId";s:1:"8";}s:18:"_1382028229772_772";a:2:{s:9:"paymentId";s:17:"cerebrum_redecard";s:11:"clearsaleId";s:1:"1";}s:18:"_1382028230691_691";a:2:{s:9:"paymentId";s:14:"cerebrum_cielo";s:11:"clearsaleId";s:1:"1";}s:18:"_1382028231324_324";a:2:{s:9:"paymentId";s:24:"cerebrum_americanexpress";s:11:"clearsaleId";s:1:"1";}s:17:"_1382028232060_60";a:2:{s:9:"paymentId";s:21:"cerebrum_itaushopline";s:11:"clearsaleId";s:1:"6";}s:18:"_1382028234270_270";a:2:{s:9:"paymentId";s:17:"cerebrum_bradesco";s:11:"clearsaleId";s:1:"6";}s:18:"_1382028234887_887";a:2:{s:9:"paymentId";s:22:"cerebrum_bancodobrasil";s:11:"clearsaleId";s:1:"6";}s:18:"_1382028235579_579";a:2:{s:9:"paymentId";s:30:"cerebrum_banrisul_banricompras";s:11:"clearsaleId";s:1:"6";}s:18:"_1382028236191_191";a:2:{s:9:"paymentId";s:24:"cerebrum_banrisul_boleto";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028236924_924";a:2:{s:9:"paymentId";s:18:"cerebrum_boleto_bb";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028237564_564";a:2:{s:9:"paymentId";s:24:"cerebrum_boleto_bradesco";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028238263_263";a:2:{s:9:"paymentId";s:20:"cerebrum_boleto_itau";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028238983_983";a:2:{s:9:"paymentId";s:33:"cerebrum_boleto_santander_banespa";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028342291_291";a:2:{s:9:"paymentId";s:23:"cerebrum_boleto_banespa";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028343237_237";a:2:{s:9:"paymentId";s:19:"cerebrum_boleto_cef";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028343871_871";a:2:{s:9:"paymentId";s:20:"cerebrum_boleto_hsbc";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028344566_566";a:2:{s:9:"paymentId";s:23:"cerebrum_boleto_bancoob";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028345383_383";a:2:{s:9:"paymentId";s:18:"cerebrum_pagseguro";s:11:"clearsaleId";s:1:"1";}s:17:"_1382028346094_94";a:2:{s:9:"paymentId";s:20:"cerebrum_meucheckout";s:11:"clearsaleId";s:1:"1";}}</serialized>
+            </cerebrum_clearsale_start>
+            <cerebrum_tclearsale>
+                <active>0</active>
+                <environment>http://www.clearsale.com.br/integracaov2/service.asmx</environment>
+                <entitycode></entitycode>
+                <environment>http://homologacao.clearsale.com.br/integracaov2/service.asmx</environment>
+                <entitycode>20D83637-18B2-4E67-AF0C-91AF25BA1DA4</entitycode>
+                <type_ecommerce>B2C</type_ecommerce>
+                <serialized>a:19:{s:18:"_1382028468150_150";a:2:{s:9:"paymentId";s:6:"ccsave";s:11:"clearsaleId";s:1:"1";}s:18:"_1382028469498_498";a:2:{s:9:"paymentId";s:7:"checkmo";s:11:"clearsaleId";s:1:"8";}s:17:"_1382028470090_90";a:2:{s:9:"paymentId";s:17:"cerebrum_redecard";s:11:"clearsaleId";s:1:"1";}s:17:"_1382028471026_26";a:2:{s:9:"paymentId";s:14:"cerebrum_cielo";s:11:"clearsaleId";s:1:"1";}s:17:"_1382028472085_85";a:2:{s:9:"paymentId";s:24:"cerebrum_americanexpress";s:11:"clearsaleId";s:1:"1";}s:18:"_1382028472802_802";a:2:{s:9:"paymentId";s:21:"cerebrum_itaushopline";s:11:"clearsaleId";s:1:"6";}s:18:"_1382028473430_430";a:2:{s:9:"paymentId";s:17:"cerebrum_bradesco";s:11:"clearsaleId";s:1:"6";}s:18:"_1382028474106_106";a:2:{s:9:"paymentId";s:22:"cerebrum_bancodobrasil";s:11:"clearsaleId";s:1:"6";}s:18:"_1382028474994_994";a:2:{s:9:"paymentId";s:30:"cerebrum_banrisul_banricompras";s:11:"clearsaleId";s:1:"6";}s:18:"_1382028476382_382";a:2:{s:9:"paymentId";s:24:"cerebrum_banrisul_boleto";s:11:"clearsaleId";s:1:"2";}s:17:"_1382028477011_11";a:2:{s:9:"paymentId";s:18:"cerebrum_boleto_bb";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028477714_714";a:2:{s:9:"paymentId";s:24:"cerebrum_boleto_bradesco";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028478322_322";a:2:{s:9:"paymentId";s:20:"cerebrum_boleto_itau";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028478938_938";a:2:{s:9:"paymentId";s:33:"cerebrum_boleto_santander_banespa";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028479562_562";a:2:{s:9:"paymentId";s:23:"cerebrum_boleto_banespa";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028480181_181";a:2:{s:9:"paymentId";s:20:"cerebrum_boleto_hsbc";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028480755_755";a:2:{s:9:"paymentId";s:23:"cerebrum_boleto_bancoob";s:11:"clearsaleId";s:1:"2";}s:18:"_1382028481362_362";a:2:{s:9:"paymentId";s:18:"cerebrum_pagseguro";s:11:"clearsaleId";s:1:"1";}s:18:"_1382028481875_875";a:2:{s:9:"paymentId";s:20:"cerebrum_meucheckout";s:11:"clearsaleId";s:1:"1";}}</serialized>
+            </cerebrum_tclearsale>
+		</fraudcheck>
+	</default><!-- cerebrum->default -->
+
+    <crontab>
+        <jobs>
+            <cerebrum_consulta_itau>
+                <schedule>
+					<cron_expr>*/30 * * * *</cron_expr><!-- Este cron será executado a cada X minutos -->
+				</schedule>
+                <run>
+                    <model>telencephalon/cron::consultaItau</model>
+                </run>
+            </cerebrum_consulta_itau>
+            <cerebrum_consulta_bradesco>
+                <schedule>
+					<cron_expr>*/30 * * * *</cron_expr><!-- Este cron será executado a cada X minutos -->
+				</schedule>
+                <run>
+                    <model>telencephalon/cron::consultaBradesco</model>
+                </run>
+            </cerebrum_consulta_bradesco>
+            <cerebrum_correios_tracking>
+                <schedule>
+					<cron_expr>*/30 * * * *</cron_expr><!-- Este cron será executado a cada X minutos -->
+				</schedule>
+                <run>
+                    <model>telencephalon/cron::correiosTracking</model>
+                </run>
+            </cerebrum_correios_tracking>
+            <cerebrum_magento_cleanup>
+                <schedule>
+					<cron_expr>0 1 * * *</cron_expr><!-- Este cron será executado todos os dias às 01h00 -->
+				</schedule>
+                <run>
+                    <model>telencephalon/cron::cleanUp</model>
+                </run>
+            </cerebrum_magento_cleanup>
+        </jobs>
+    </crontab>
+
+</config>
